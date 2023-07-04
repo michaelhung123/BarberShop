@@ -2,11 +2,20 @@ package com.example.barbershop;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.barbershop.Adaptor.CategoryAdaptor;
+import com.example.barbershop.Domain.CategoryDomain;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,10 +32,10 @@ public class HomeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
     public HomeFragment() {
         // Required empty public constructor
     }
+
 
     /**
      * Use this factory method to create a new instance of
@@ -60,5 +69,24 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        RecyclerView recyclerViewCategoryList = view.findViewById(R.id.recycleView1);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerViewCategoryList.setLayoutManager(linearLayoutManager);
+
+        ArrayList<CategoryDomain> category = new ArrayList<>();
+        category.add(new CategoryDomain("Hair cut", "pic1"));
+        category.add(new CategoryDomain("Hair cut", "pic2"));
+        category.add(new CategoryDomain("Hair cut", "pic3"));
+        category.add(new CategoryDomain("Hair cut", "pic4"));
+        category.add(new CategoryDomain("Hair cut", "pic5"));
+        category.add(new CategoryDomain("Hair cut", "pic6"));
+
+        CategoryAdaptor adapter = new CategoryAdaptor(category);
+        recyclerViewCategoryList.setAdapter(adapter);
     }
 }
