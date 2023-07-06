@@ -67,20 +67,4 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-//    private void recyclerViewCategory() {
-//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-//        recyclerViewCategoryList = findViewById(R.id.recycleView1);
-//        recyclerViewCategoryList.setLayoutManager(linearLayoutManager);
-//
-//        ArrayList<CategoryDomain> category = new ArrayList<>();
-//        category.add(new CategoryDomain("Hair cut", "pic1"));
-//        category.add(new CategoryDomain("Hair cut", "pic2"));
-//        category.add(new CategoryDomain("Hair cut", "pic3"));
-//        category.add(new CategoryDomain("Hair cut", "pic4"));
-//        category.add(new CategoryDomain("Hair cut", "pic5"));
-//        category.add(new CategoryDomain("Hair cut", "pic6"));
-//
-//        adapter = new CategoryAdaptor(category);
-//        recyclerViewCategoryList.setAdapter(adapter);
-//    }
 }
