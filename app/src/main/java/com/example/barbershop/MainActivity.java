@@ -1,21 +1,15 @@
 package com.example.barbershop;
 
-import com.example.barbershop.R;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import com.example.barbershop.Adaptor.CategoryAdaptor;
-import com.example.barbershop.Domain.CategoryDomain;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {

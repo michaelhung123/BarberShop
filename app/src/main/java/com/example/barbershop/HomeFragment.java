@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.barbershop.Adaptor.CategoryAdaptor;
-import com.example.barbershop.Domain.CategoryDomain;
+import com.example.barbershop.Domain.Category;
 
 import java.util.ArrayList;
 
@@ -78,13 +78,13 @@ public class HomeFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewCategoryList.setLayoutManager(linearLayoutManager);
 
-        ArrayList<CategoryDomain> category = new ArrayList<>();
-        category.add(new CategoryDomain("Hair cut", "pic1"));
-        category.add(new CategoryDomain("Hair cut", "pic2"));
-        category.add(new CategoryDomain("Hair cut", "pic3"));
-        category.add(new CategoryDomain("Hair cut", "pic4"));
-        category.add(new CategoryDomain("Hair cut", "pic5"));
-        category.add(new CategoryDomain("Hair cut", "pic6"));
+        ArrayList<Category> category = new ArrayList<>();
+        category.add(new Category("Hair cut", "pic1"));
+        category.add(new Category("Hair cut", "pic2"));
+        category.add(new Category("Hair cut", "pic3"));
+        category.add(new Category("Hair cut", "pic4"));
+        category.add(new Category("Hair cut", "pic5"));
+        category.add(new Category("Hair cut", "pic6"));
 
         CategoryAdaptor adapter = new CategoryAdaptor(category);
         recyclerViewCategoryList.setAdapter(adapter);

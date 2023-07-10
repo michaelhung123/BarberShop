@@ -1,6 +1,5 @@
 package com.example.barbershop.Adaptor;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,27 +9,26 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.GenericLifecycleObserver;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.barbershop.Domain.CategoryDomain;
+import com.example.barbershop.Domain.Category;
 import com.example.barbershop.R;
 
 import java.util.ArrayList;
 
 public class CategoryAdaptor extends RecyclerView.Adapter<CategoryAdaptor.ViewHolder> {
-     ArrayList<CategoryDomain>categoryDomains;
-     public CategoryAdaptor(ArrayList<CategoryDomain> categoryDomains){
-         this.categoryDomains =categoryDomains;
+     ArrayList<Category> categories;
+     public CategoryAdaptor(ArrayList<Category> categories){
+         this.categories = categories;
      }
 
-    public ArrayList<CategoryDomain> getCategoryDomains() {
-        return categoryDomains;
+    public ArrayList<Category> getCategoryDomains() {
+        return categories;
     }
 
-    public void setCategoryDomains(ArrayList<CategoryDomain> categoryDomains) {
-        this.categoryDomains = categoryDomains;
+    public void setCategoryDomains(ArrayList<Category> categories) {
+        this.categories = categories;
     }
 
     @Override
@@ -41,7 +39,7 @@ public class CategoryAdaptor extends RecyclerView.Adapter<CategoryAdaptor.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull CategoryAdaptor.ViewHolder holder, int position) {
-        holder.categoryName.setText(categoryDomains.get(position).getTitle());
+        holder.categoryName.setText(categories.get(position).getTitle());
         String picUrl = "";
         switch (position){
             case 0: {
@@ -88,7 +86,7 @@ public class CategoryAdaptor extends RecyclerView.Adapter<CategoryAdaptor.ViewHo
 
     @Override
     public int getItemCount() {
-        return categoryDomains.size();
+        return categories.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

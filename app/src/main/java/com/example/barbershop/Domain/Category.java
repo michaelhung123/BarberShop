@@ -1,6 +1,6 @@
 package com.example.barbershop.Domain;
 
-public class CategoryDomain {
+public class Category {
     private String title;
     private String imagePic;
 
@@ -20,7 +20,7 @@ public class CategoryDomain {
         this.imagePic = imagePic;
     }
 
-    public CategoryDomain(String title, String imagePic){
+    public Category(String title, String imagePic){
         this.title = title;
         this.imagePic = imagePic;
     }
