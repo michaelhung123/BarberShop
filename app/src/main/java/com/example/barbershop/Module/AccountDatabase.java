@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -18,14 +19,17 @@ public class AccountDatabase extends SQLiteOpenHelper {
 
 
     public AccountDatabase(@Nullable Context context) {
-        super(context, "barbershop.db", null, 1);
+        super(context, "barber.db", null, 1);
     }
 
     //this is called the first time a database is accessed. There should be code in here to create a new database
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTableStatement = "CREATE TABLE " + ACCOUNT_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_USERNAME + " TEXT, " + " TEXT)";
+        String createTableStatement = "CREATE TABLE " + ACCOUNT_TABLE + " (" +
+                COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_USERNAME + " TEXT, " +
+                COLUMN_PASSWORD + " TEXT)";
+
         db.execSQL(createTableStatement);
     }
 
