@@ -12,8 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.barbershop.Adaptor.CategoryAdaptor;
-import com.example.barbershop.Domain.Category;
+import com.example.barbershop.Adaptor.StaffAdapter;
+import com.example.barbershop.Domain.Staff;
 
 import java.util.ArrayList;
 
@@ -78,15 +78,15 @@ public class HomeFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewCategoryList.setLayoutManager(linearLayoutManager);
 
-        ArrayList<Category> category = new ArrayList<>();
-        category.add(new Category("Hair cut", "pic1"));
-        category.add(new Category("Hair cut", "pic2"));
-        category.add(new Category("Hair cut", "pic3"));
-        category.add(new Category("Hair cut", "pic4"));
-        category.add(new Category("Hair cut", "pic5"));
-        category.add(new Category("Hair cut", "pic6"));
+        ArrayList<Staff> staff = new ArrayList<>();
+        staff.add(new Staff("Hair cut", "pic1"));
+        staff.add(new Staff("Hair cut", "pic2"));
+        staff.add(new Staff("Hair cut", "pic3"));
+        staff.add(new Staff("Hair cut", "pic4"));
+        staff.add(new Staff("Hair cut", "pic5"));
+        staff.add(new Staff("Hair cut", "pic6"));
 
-        CategoryAdaptor adapter = new CategoryAdaptor(category);
+        StaffAdapter adapter = new StaffAdapter(staff);
         recyclerViewCategoryList.setAdapter(adapter);
     }
 }

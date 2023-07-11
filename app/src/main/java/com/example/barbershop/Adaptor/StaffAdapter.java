@@ -12,22 +12,22 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.barbershop.Domain.Category;
+import com.example.barbershop.Domain.Staff;
 import com.example.barbershop.R;
 
 import java.util.ArrayList;
 
-public class CategoryAdaptor extends RecyclerView.Adapter<CategoryAdaptor.ViewHolder> {
-     ArrayList<Category> categories;
-     public CategoryAdaptor(ArrayList<Category> categories){
+public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.ViewHolder> {
+     ArrayList<Staff> categories;
+     public StaffAdapter(ArrayList<Staff> categories){
          this.categories = categories;
      }
 
-    public ArrayList<Category> getCategoryDomains() {
+    public ArrayList<Staff> getCategoryDomains() {
         return categories;
     }
 
-    public void setCategoryDomains(ArrayList<Category> categories) {
+    public void setCategoryDomains(ArrayList<Staff> categories) {
         this.categories = categories;
     }
 
@@ -38,7 +38,7 @@ public class CategoryAdaptor extends RecyclerView.Adapter<CategoryAdaptor.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CategoryAdaptor.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull StaffAdapter.ViewHolder holder, int position) {
         holder.categoryName.setText(categories.get(position).getTitle());
         String picUrl = "";
         switch (position){

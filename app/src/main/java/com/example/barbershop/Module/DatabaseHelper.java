@@ -28,8 +28,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //TABLE ROLE
     public static final String ROLE_TABLE = "ROLE";
     public static final String COLUMN_ROLE_ID = "ID";
-
     public static final String COLUMN_ROLE_NAME = "ROLENAME";
+
+    //TABLE CATEGORY
+    public static final String CATEGORIES_TABLE = "CATEGORIES";
+    public static final String COLUMN_CATEGORY_ID = "ID";
+    public static final String COLUMN_CATEGORY_NAME = "NAME";
+    public static final String COLUMN_CATEGORY_DESCRIPTION = "DESCRIPTION";
+
+    public static final String COLUMN_CATEGORY_FILE_PICTURE = "FILE_PICTURE";
 
 
     public DatabaseHelper(@Nullable Context context) {
@@ -41,6 +48,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         createAccountTable(db);
         createRoleTable(db);
+        createCategoriesTable(db);
     }
 
     //this is called if the database version number changes, It prevents previous users app from breaking when you change the database design
@@ -70,6 +78,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void createRoleTable(SQLiteDatabase db) {
         String createTableRole = "CREATE TABLE IF NOT EXISTS " + ROLE_TABLE + " (" + COLUMN_ROLE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_ROLE_NAME + " TEXT ) ";
+
+        db.execSQL(createTableRole);
+    }
+
+    public void createCategoriesTable(SQLiteDatabase db) {
+        String createTableRole = "CREATE TABLE IF NOT EXISTS " + CATEGORIES_TABLE + " (" + COLUMN_CATEGORY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_CATEGORY_NAME + " TEXT, " +
+                COLUMN_CATEGORY_DESCRIPTION + " TEXT)";
 
         db.execSQL(createTableRole);
     }

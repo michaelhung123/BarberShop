@@ -1,15 +1,50 @@
 package com.example.barbershop.Domain;
 
 public class Category {
-    private String title;
+    private int id;
+    private String name;
+    private String description;
     private String imagePic;
 
-    public String getTitle() {
-        return title;
+    public Category() {
+
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public Category(int id, String name, String description) {
+        this.setId(id);
+        this.setName(name);
+        this.setDescription(description);
+    }
+
+    public Category(int id, String name, String description, String imagePic) {
+        this.setId(id);
+        this.setName(name);
+        this.setDescription(description);
+        this.setImagePic(imagePic);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getImagePic() {
@@ -17,11 +52,6 @@ public class Category {
     }
 
     public void setImagePic(String imagePic) {
-        this.imagePic = imagePic;
-    }
-
-    public Category(String title, String imagePic){
-        this.title = title;
         this.imagePic = imagePic;
     }
 }
