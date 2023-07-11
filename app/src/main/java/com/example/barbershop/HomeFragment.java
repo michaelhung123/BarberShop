@@ -1,5 +1,7 @@
 package com.example.barbershop;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -8,12 +10,16 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.barbershop.Adaptor.CategoryAdaptor;
+import com.example.barbershop.Domain.Account;
 import com.example.barbershop.Domain.Category;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 
@@ -32,6 +38,8 @@ public class HomeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    TextView txtName;
+    TextInputEditText txtUsername;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -88,5 +96,13 @@ public class HomeFragment extends Fragment {
 
         CategoryAdaptor adapter = new CategoryAdaptor(category);
         recyclerViewCategoryList.setAdapter(adapter);
+
+        txtName = view.findViewById(R.id.txtName);
+        // Đọc thông tin người dùng từ SharedPreferences
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("UserData", Context.MODE_PRIVATE);
+        String username = sharedPreferences.getString("username", "");
+
+        // Hiển thị thông tin người dùng lên giao diện người dùng
+        txtName.setText(username);
     }
 }

@@ -1,7 +1,7 @@
 package com.example.barbershop.Domain;
 
 import java.time.LocalDate;
-//TEST 
+//TEST
 
 public class Account {
     private int id;

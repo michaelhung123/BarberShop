@@ -65,4 +65,19 @@ public class AccountDataSource {
         return account;
     }
 
+    public boolean checkAccount(String username, String password) {
+        db = dbHelper.getReadableDatabase();
+        String[] columns = {dbHelper.COLUMN_ACCOUNT_ID,dbHelper.COLUMN_USERNAME,dbHelper.COLUMN_PASSWORD};
+        String selection = dbHelper.COLUMN_USERNAME + " = ? AND " + dbHelper.COLUMN_PASSWORD + " = ?";
+        String[] selectionArgs = {username, password};
+
+        Cursor cursor = db.query(dbHelper.ACCOUNT_TABLE, columns, selection, selectionArgs, null, null, null);
+        int count = cursor.getCount();
+        cursor.close();
+
+        return count > 0;
+    }
+
+
+
 }

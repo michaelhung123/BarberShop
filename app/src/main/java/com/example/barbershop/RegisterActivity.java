@@ -25,6 +25,8 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
     TextInputEditText txtUsername;
@@ -68,10 +70,21 @@ public class RegisterActivity extends AppCompatActivity {
                 acc.setEmail(txtEmail.getText().toString());
                 acc.setPhone(txtPhone.getText().toString());
                 acc.setDateOfBirth(txtDateOfBirth.getText().toString());
-                acc.setUsername(txtUsername.getText().toString());
-                acc.setUsername(txtUsername.getText().toString());
                 AccountDataSource accountDataSource = new AccountDataSource(RegisterActivity.this);
-                if(accountDataSource.addAccount(acc) instanceof Account){
+                if(txtUsername.getText().toString().isEmpty() ||
+                        txtPassword.getText().toString().isEmpty() ||
+                        txtEmail.getText().toString().isEmpty() ||
+                        txtPhone.getText().toString().isEmpty() ||
+                        txtDateOfBirth.getText().toString().isEmpty()){
+                    Toast.makeText(RegisterActivity.this, "Please enter complete information !", Toast.LENGTH_SHORT).show();
+                }
+                else if (!isValidPhoneNumber(txtPhone.getText().toString())){
+                    Toast.makeText(RegisterActivity.this, "Please enter correct phone format !", Toast.LENGTH_SHORT).show();
+                }
+                else if(!isValidEmail(txtEmail.getText().toString())){
+                    Toast.makeText(RegisterActivity.this, "Please enter correct email format !", Toast.LENGTH_SHORT).show();
+                }
+                else if(accountDataSource.addAccount(acc) instanceof Account){
                     Toast.makeText(RegisterActivity.this, "Success!", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(RegisterActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
@@ -129,7 +142,20 @@ public class RegisterActivity extends AppCompatActivity {
                 // Xử lý khi không có lựa chọn nào được chọn
             }
         });
-
     }
+
+    // Kiểm tra định dạng email
+    private boolean isValidEmail(String email) {
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        return email.matches(emailPattern);
+    }
+
+    //Kiểm tra số điện thoại
+    private boolean isValidPhoneNumber(String phoneNumber) {
+        // Kiểm tra định dạng số điện thoại: bắt đầu bằng số 0, gồm 10 chữ số
+        String phonePattern = "0\\d{9}";
+        return phoneNumber.matches(phonePattern);
+    }
+
 
 }
