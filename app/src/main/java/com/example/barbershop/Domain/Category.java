@@ -1,5 +1,7 @@
 package com.example.barbershop.Domain;
 
+import androidx.annotation.NonNull;
+
 public class Category {
     private int id;
     private String name;
@@ -53,5 +55,11 @@ public class Category {
 
     public void setImagePic(String imagePic) {
         this.imagePic = imagePic;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return Integer.toString(id);
     }
 }

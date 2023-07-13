@@ -30,7 +30,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_ROLE_ID = "ID";
     public static final String COLUMN_ROLE_NAME = "ROLENAME";
 
-    //TABLE CATEGORY
+    //TABLE CATEGORIES
     public static final String CATEGORIES_TABLE = "CATEGORIES";
     public static final String COLUMN_CATEGORY_ID = "ID";
     public static final String COLUMN_CATEGORY_NAME = "NAME";
@@ -38,9 +38,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String COLUMN_CATEGORY_FILE_PICTURE = "FILE_PICTURE";
 
+    //TABLE SERVICES
+    public static final String SERVICES_TABLE = "SERVICES";
+    public static final String COLUMN_SERVICE_ID = "ID";
+    public static final String COLUMN_SERVICE_NAME = "NAME";
+    public static final String COLUMN_SERVICE_CATEGORY_ID = "CATEGORY_ID";
 
     public DatabaseHelper(@Nullable Context context) {
-        super(context, "barber.db", null, 9);
+        super(context, "barber.db", null, 12);
     }
 
     //this is called the first time a database is accessed. There should be code in here to create a new database
@@ -49,6 +54,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         createAccountTable(db);
         createRoleTable(db);
         createCategoriesTable(db);
+        createServicesTable(db);
     }
 
     //this is called if the database version number changes, It prevents previous users app from breaking when you change the database design
@@ -57,6 +63,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // Xóa bảng cũ
 //        db.execSQL("DROP TABLE IF EXISTS " + ACCOUNT_TABLE);
 //        db.execSQL("DROP TABLE IF EXISTS " + ROLE_TABLE);
+//        db.execSQL("DROP TABLE IF EXISTS " + CATEGORIES_TABLE);
         // Tạo lại bảng mới với cấu trúc đã cập nhật
         onCreate(db);
     }
@@ -83,11 +90,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void createCategoriesTable(SQLiteDatabase db) {
-        String createTableRole = "CREATE TABLE IF NOT EXISTS " + CATEGORIES_TABLE + " (" + COLUMN_CATEGORY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+        String createTableCategories = "CREATE TABLE IF NOT EXISTS " + CATEGORIES_TABLE + " (" + COLUMN_CATEGORY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_CATEGORY_NAME + " TEXT, " +
-                COLUMN_CATEGORY_DESCRIPTION + " TEXT)";
+                COLUMN_CATEGORY_DESCRIPTION + " TEXT, " +
+                COLUMN_CATEGORY_FILE_PICTURE + " TEXT )";
 
-        db.execSQL(createTableRole);
+        db.execSQL(createTableCategories);
+    }
+
+    public void createServicesTable(SQLiteDatabase db) {
+        String createTableServices = "CREATE TABLE IF NOT EXISTS " + SERVICES_TABLE + " (" + COLUMN_SERVICE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_SERVICE_NAME + " TEXT, " +
+                COLUMN_SERVICE_CATEGORY_ID + " INTEGER REFERENCES " + CATEGORIES_TABLE + "("+ COLUMN_CATEGORY_ID + "))";
+
+        db.execSQL(createTableServices);
     }
 
     public boolean addOne(Account account) {
