@@ -1,7 +1,5 @@
 package com.example.barbershop.Domain;
 
-import androidx.annotation.NonNull;
-
 public class Service {
     private int id;
     private String name;
@@ -15,16 +13,21 @@ public class Service {
 
     }
 
-    public Service(int id, String name, double price, int category_id) {
-
+    public Service(int id, String name, double price, String description, String file, int category_id) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.filePath = file;
+        this.category_id = category_id;
     }
 
     public Service(String name, double price, String description, String filePath, int category_id) {
         this.name = name;
-        this.price = price;
+        this.setPrice(price);
         this.category_id = category_id;
-        this.description = description;
-        this.filePath = filePath;
+        this.setDescription(description);
+        this.setFilePath(filePath);
     }
 
     public int getId() {
@@ -54,5 +57,29 @@ public class Service {
     @Override
     public String toString() {
         return name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 }
