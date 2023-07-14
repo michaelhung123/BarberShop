@@ -5,18 +5,26 @@ import androidx.annotation.NonNull;
 public class Service {
     private int id;
     private String name;
+    private double price;
+
+    private String description;
+    private String filePath;
     private int category_id;
 
     public Service() {
 
     }
 
-    public Service(int id, String name, int category_id) {
+    public Service(int id, String name, double price, int category_id) {
 
     }
 
-    public Service(String name, int category_id) {
-
+    public Service(String name, double price, String description, String filePath, int category_id) {
+        this.name = name;
+        this.price = price;
+        this.category_id = category_id;
+        this.description = description;
+        this.filePath = filePath;
     }
 
     public int getId() {

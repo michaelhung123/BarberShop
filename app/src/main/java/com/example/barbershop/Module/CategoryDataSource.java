@@ -76,7 +76,7 @@ public class CategoryDataSource {
         cv.put(dbHelper.COLUMN_CATEGORY_DESCRIPTION, cate.getDescription());
         cv.put(dbHelper.COLUMN_CATEGORY_FILE_PICTURE, cate.getImagePic());
 
-        long insertId = db.insert(dbHelper.CATEGORIES_TABLE, null, cv);
+        long insertCate = db.insert(dbHelper.CATEGORIES_TABLE, null, cv);
         Cursor cursor = db.query(dbHelper.CATEGORIES_TABLE, allColumns, null,null,null,null,null );
         cursor.moveToFirst();
         Category newCate = cursorToCate(cursor);
@@ -84,7 +84,23 @@ public class CategoryDataSource {
         return newCate;
     }
 
+public static boolean updateCategory(Context context, Category cate) {
+        dbHelper = new DatabaseHelper(context);
+        db = dbHelper.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(dbHelper.COLUMN_CATEGORY_NAME, cate.getName());
+        cv.put(dbHelper.COLUMN_CATEGORY_DESCRIPTION, cate.getDescription());
+        cv.put(dbHelper.COLUMN_CATEGORY_FILE_PICTURE, cate.getImagePic());
+        int updateCate = db.update(dbHelper.CATEGORIES_TABLE, cv, dbHelper.COLUMN_CATEGORY_ID + " = ?", new String[]{Integer.toString(cate.getId())});
+        return updateCate > 0;
+}
 
+public static boolean deleteCategory(Context context, int categoryId) {
+    dbHelper = new DatabaseHelper(context);
+    db = dbHelper.getWritableDatabase();
+    int deleteCate = db.delete(dbHelper.CATEGORIES_TABLE, dbHelper.COLUMN_CATEGORY_ID + " = ?", new String[]{Integer.toString(categoryId)});
+    return deleteCate > 0;
+}
 
     private Category cursorToCate(Cursor cursor) {
         Category cate = new Category();

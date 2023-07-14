@@ -42,28 +42,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String SERVICES_TABLE = "SERVICES";
     public static final String COLUMN_SERVICE_ID = "ID";
     public static final String COLUMN_SERVICE_NAME = "NAME";
+
+    public static  final String COLUMN_SERVICE_PRICE = "PRICE";
+    public static  final String COLUMN_SERVICE_DESCRIPTION = "DESCRIPTION";
+    public static  final String COLUMN_SERVICE_FILE = "FILE";
     public static final String COLUMN_SERVICE_CATEGORY_ID = "CATEGORY_ID";
 
     public DatabaseHelper(@Nullable Context context) {
-        super(context, "barber.db", null, 12);
+        super(context, "barber.db", null, 13);
     }
 
     //this is called the first time a database is accessed. There should be code in here to create a new database
     @Override
     public void onCreate(SQLiteDatabase db) {
         createAccountTable(db);
+
         createRoleTable(db);
+
         createCategoriesTable(db);
+        insertCategoriesTable(db);
         createServicesTable(db);
+        insertServicesTable(db);
     }
 
     //this is called if the database version number changes, It prevents previous users app from breaking when you change the database design
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Xóa bảng cũ
-//        db.execSQL("DROP TABLE IF EXISTS " + ACCOUNT_TABLE);
-//        db.execSQL("DROP TABLE IF EXISTS " + ROLE_TABLE);
-//        db.execSQL("DROP TABLE IF EXISTS " + CATEGORIES_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + ACCOUNT_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + ROLE_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + CATEGORIES_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + SERVICES_TABLE);
         // Tạo lại bảng mới với cấu trúc đã cập nhật
         onCreate(db);
     }
@@ -98,12 +107,47 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(createTableCategories);
     }
 
+    public void  insertCategoriesTable(SQLiteDatabase db) {
+        String sql = "";
+        sql = "INSERT INTO " + CATEGORIES_TABLE + " VALUES (null, 'CẮT GỘI MASSAGE', '', '')";
+        db.execSQL(sql);
+        sql = "INSERT INTO " + CATEGORIES_TABLE + " VALUES (null, 'COMBO CHĂM SÓC DA - THƯ GIÃN', '', '')";
+        db.execSQL(sql);
+        sql = "INSERT INTO " + CATEGORIES_TABLE + " VALUES (null, 'UỐN HÀN QUỐC 8 CẤP ĐỘ', '', '')";
+        db.execSQL(sql);
+    }
+
     public void createServicesTable(SQLiteDatabase db) {
         String createTableServices = "CREATE TABLE IF NOT EXISTS " + SERVICES_TABLE + " (" + COLUMN_SERVICE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_SERVICE_NAME + " TEXT, " +
+                COLUMN_SERVICE_PRICE + " TEXT, " +
+                COLUMN_SERVICE_DESCRIPTION + " TEXT, " +
+                COLUMN_SERVICE_FILE + " TEXT, " +
                 COLUMN_SERVICE_CATEGORY_ID + " INTEGER REFERENCES " + CATEGORIES_TABLE + "("+ COLUMN_CATEGORY_ID + "))";
 
         db.execSQL(createTableServices);
+    }
+
+    public void insertServicesTable(SQLiteDatabase db) {
+        String sql = "";
+        sql = "INSERT INTO " + SERVICES_TABLE + " VALUES (null, 'Cắt gội 10 bước', 120000, '', '', 1)";
+        db.execSQL(sql);
+        sql = "INSERT INTO " + SERVICES_TABLE + " VALUES (null, 'Combo cắt gội và massage đá nóng VIP', 370000, '', '', 1)";
+        db.execSQL(sql);
+        sql = "INSERT INTO " + SERVICES_TABLE + " VALUES (null, 'Combo cắt gội VIP (all dịch vụ chăm sóc)', 270000, '', '', 1)";
+        db.execSQL(sql);
+        sql = "INSERT INTO " + SERVICES_TABLE + " VALUES (null, 'Chăm sóc da cấp thiết UltraWhite', 50000, '', '', 2)";
+        db.execSQL(sql);
+        sql = "INSERT INTO " + SERVICES_TABLE + " VALUES (null, 'Massage cổ, vai, gáy bạc hà cam ngọt', 45000, '', '', 2)";
+        db.execSQL(sql);
+        sql = "INSERT INTO " + SERVICES_TABLE + " VALUES (null, 'Combo lấy ráy tai VIP', 70000, '', '', 2)";
+        db.execSQL(sql);
+        sql = "INSERT INTO " + SERVICES_TABLE + " VALUES (null, 'Uốn cao cấp Hàn Quốc', 399000, '', '', 3)";
+        db.execSQL(sql);
+        sql = "INSERT INTO " + SERVICES_TABLE + " VALUES (null, 'Uốn định hình Ivy Star 2023', 599000, '', '', 3)";
+        db.execSQL(sql);
+        sql = "INSERT INTO " + SERVICES_TABLE + " VALUES (null, 'Uốn tiêu chuẩn', 319000, '', '', 3)";
+        db.execSQL(sql);
     }
 
     public boolean addOne(Account account) {

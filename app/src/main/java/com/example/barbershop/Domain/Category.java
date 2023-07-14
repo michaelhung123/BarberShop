@@ -60,6 +60,6 @@ public class Category {
     @NonNull
     @Override
     public String toString() {
-        return Integer.toString(id);
+        return Integer.toString(getId()) + " " + getName();
     }
 }

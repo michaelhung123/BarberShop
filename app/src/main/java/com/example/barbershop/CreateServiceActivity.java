@@ -1,6 +1,5 @@
 package com.example.barbershop;
 
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,9 +18,8 @@ import com.example.barbershop.Module.CategoryDataSource;
 import com.example.barbershop.Module.ServiceDataSource;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class ServiceActivity extends AppCompatActivity {
+public class CreateServiceActivity extends AppCompatActivity {
     Button btnCreate;
     EditText txtName;
     Spinner spinnerCategory;
@@ -36,24 +34,24 @@ public class ServiceActivity extends AppCompatActivity {
         btnCreate = findViewById(R.id.btnCreateService);
         txtName = findViewById(R.id.txtServiceName);
         spinnerCategory = findViewById(R.id.spnCategory);
-        categoryNames = CategoryDataSource.selectCategories(ServiceActivity.this);
+        categoryNames = CategoryDataSource.selectCategories(CreateServiceActivity.this);
 
         ArrayList<Category> categories = new ArrayList<>();
 
-        ServiceDataSource serviceDataSource = new ServiceDataSource(ServiceActivity.this);
+        ServiceDataSource serviceDataSource = new ServiceDataSource(CreateServiceActivity.this);
 
-        adapter = new ArrayAdapter(ServiceActivity.this, android.R.layout.simple_spinner_item, categoryNames);
+        adapter = new ArrayAdapter(CreateServiceActivity.this, android.R.layout.simple_spinner_item, categoryNames);
         spinnerCategory.setAdapter(adapter);
 
         btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 serv.setName(txtName.getText().toString());
-                serv.setCategory_id(spinnerCategory.getSelectedItemPosition());
+//                serv.setCategory_id(spinnerCategory.getSelectedItemPosition());
                 if (serviceDataSource.addService(serv) != null) {
-                    Toast.makeText(ServiceActivity.this, "Success!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateServiceActivity.this, "Success!", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(ServiceActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateServiceActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
