@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:background="@android:color/holo_blue_light"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:textSize="40sp"
+        android:gravity="center"
+        android:text="Thêm khuyến mãi" />
+    <EditText
+        android:id="@+id/createName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nhập tên"/>
+    <EditText
+        android:id="@+id/createCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nhập code"/>
+    <EditText
+        android:id="@+id/createValue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nhập giá trị"/>
+    <EditText
+        android:id="@+id/createQuantity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nhập số lượng"/>
+    <EditText
+        android:id="@+id/createStartTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nhập ngày bắt đầu"/>
+    <EditText
+        android:id="@+id/createEndTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nhập ngày kết thúc"/>
+    <Button
+        android:id="@+id/btnAdd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Thêm khuyến mãi"/>
+</LinearLayout>
