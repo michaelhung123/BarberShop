@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,12 +17,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.barbershop.Adaptor.CategoryAdaptor;
+import com.example.barbershop.Adaptor.CategoryAdapter;
 import com.example.barbershop.Domain.Account;
 import com.example.barbershop.Domain.Category;
+import com.example.barbershop.Module.CategoryDataSource;
 import com.google.android.material.textfield.TextInputEditText;
+import com.example.barbershop.Adaptor.StaffAdapter;
+import com.example.barbershop.Domain.Staff;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -86,15 +91,15 @@ public class HomeFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewCategoryList.setLayoutManager(linearLayoutManager);
 
-        ArrayList<Category> category = new ArrayList<>();
-        category.add(new Category("Hair cut", "pic1"));
-        category.add(new Category("Hair cut", "pic2"));
-        category.add(new Category("Hair cut", "pic3"));
-        category.add(new Category("Hair cut", "pic4"));
-        category.add(new Category("Hair cut", "pic5"));
-        category.add(new Category("Hair cut", "pic6"));
+        ArrayList<Staff> staff = new ArrayList<>();
+        staff.add(new Staff("Hair cut", "pic1"));
+        staff.add(new Staff("Hair cut", "pic2"));
+        staff.add(new Staff("Hair cut", "pic3"));
+        staff.add(new Staff("Hair cut", "pic4"));
+        staff.add(new Staff("Hair cut", "pic5"));
+        staff.add(new Staff("Hair cut", "pic6"));
 
-        CategoryAdaptor adapter = new CategoryAdaptor(category);
+        StaffAdapter adapter = new StaffAdapter(staff);
         recyclerViewCategoryList.setAdapter(adapter);
 
         txtName = view.findViewById(R.id.txtName);
@@ -104,5 +109,20 @@ public class HomeFragment extends Fragment {
 
         // Hiển thị thông tin người dùng lên giao diện người dùng
         txtName.setText(username);
+
+        RecyclerView rcvCategory = view.findViewById(R.id.rcvCategory);
+        CategoryAdapter categoryAdapter = new CategoryAdapter(getActivity());
+        LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false);
+        rcvCategory.setLayoutManager(linearLayoutManager1);
+        rcvCategory.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        categoryAdapter.setData(getListCategory());
+        rcvCategory.setAdapter(categoryAdapter);
+    }
+
+    private List<Category> getListCategory(){
+        CategoryDataSource categoryDataSource = new CategoryDataSource(getActivity());
+        List<Category> categoryList = categoryDataSource.selectCategories(getActivity());
+        // Đọc thông tin người dùng từ SharedPreferences
+        return categoryList;
     }
 }

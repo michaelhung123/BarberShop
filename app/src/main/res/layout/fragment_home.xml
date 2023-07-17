@@ -5,11 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HomeFragment">
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -106,59 +104,293 @@
                     app:layout_constraintStart_toEndOf="@+id/textView7" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <!--            Container 2-->
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="580dp"
-                android:background="@color/black_custom"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_height="match_parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-                app:layout_constraintVertical_bias="0.0">
-
+                >
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintLayout2"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginEnd="15dp"
+                    android:layout_height="580dp"
+                    android:background="@color/black_custom"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+                    app:layout_constraintVertical_bias="0.0">
 
-                    <ImageView
-                        android:id="@+id/imageView"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayout2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/imageView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:src="@mipmap/banner_barbershop"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/textView11"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:src="@mipmap/banner_barbershop"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
+                        android:layout_marginStart="15dp"
+                        android:text="Stylish"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycleView1"
+                        android:layout_width="420dp"
+                        android:layout_height="105dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+                    <!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
+                    <!--                        android:id="@+id/constraintLayout5"-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="140dp"-->
+                    <!--                        app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--                        app:layout_constraintStart_toStartOf="parent"-->
+                    <!--                        app:layout_constraintTop_toBottomOf="@+id/recycleView1">-->
+
+                    <!--                        <androidx.constraintlayout.widget.ConstraintLayout-->
+                    <!--                            android:id="@+id/constraintLayout4"-->
+                    <!--                            android:layout_width="190dp"-->
+                    <!--                            android:layout_height="138dp"-->
+                    <!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+                    <!--                            app:layout_constraintStart_toStartOf="parent"-->
+                    <!--                            app:layout_constraintTop_toTopOf="parent">-->
+
+                    <!--                            <ImageButton-->
+                    <!--                                android:id="@+id/imageButton2"-->
+                    <!--                                android:layout_width="match_parent"-->
+                    <!--                                android:layout_height="97dp"-->
+                    <!--                                android:src="@mipmap/barbershop"-->
+                    <!--                                app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--                                app:layout_constraintStart_toStartOf="parent"-->
+                    <!--                                app:layout_constraintTop_toTopOf="parent" />-->
+
+                    <!--                            <TextView-->
+                    <!--                                android:id="@+id/textView6"-->
+                    <!--                                android:layout_width="wrap_content"-->
+                    <!--                                android:layout_height="wrap_content"-->
+                    <!--                                android:layout_marginTop="12dp"-->
+                    <!--                                android:text="Combo Hair cut"-->
+                    <!--                                android:textColor="@color/white"-->
+                    <!--                                app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--                                app:layout_constraintHorizontal_bias="0.496"-->
+                    <!--                                app:layout_constraintStart_toStartOf="parent"-->
+                    <!--                                app:layout_constraintTop_toBottomOf="@+id/imageButton2" />-->
+                    <!--                        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+                    <!--                        <androidx.constraintlayout.widget.ConstraintLayout-->
+                    <!--                            android:id="@+id/constraintLayout3"-->
+                    <!--                            android:layout_width="190dp"-->
+                    <!--                            android:layout_height="138dp"-->
+                    <!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+                    <!--                            app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--                            app:layout_constraintHorizontal_bias="0.988"-->
+                    <!--                            app:layout_constraintStart_toEndOf="@+id/constraintLayout4"-->
+                    <!--                            app:layout_constraintTop_toTopOf="parent">-->
+
+                    <!--                            <ImageButton-->
+                    <!--                                android:id="@+id/imageButton3"-->
+                    <!--                                android:layout_width="match_parent"-->
+                    <!--                                android:layout_height="97dp"-->
+                    <!--                                android:src="@mipmap/barbershop"-->
+                    <!--                                app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--                                app:layout_constraintStart_toStartOf="parent"-->
+                    <!--                                app:layout_constraintTop_toTopOf="parent" />-->
+
+                    <!--                            <TextView-->
+                    <!--                                android:id="@+id/textView9"-->
+                    <!--                                android:layout_width="wrap_content"-->
+                    <!--                                android:layout_height="wrap_content"-->
+                    <!--                                android:layout_marginTop="12dp"-->
+                    <!--                                android:text="Combo Hair cut"-->
+                    <!--                                android:textColor="@color/white"-->
+                    <!--                                app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--                                app:layout_constraintHorizontal_bias="0.496"-->
+                    <!--                                app:layout_constraintStart_toStartOf="parent"-->
+                    <!--                                app:layout_constraintTop_toBottomOf="@+id/imageButton3" />-->
+                    <!--                        </androidx.constraintlayout.widget.ConstraintLayout>-->
+                    <!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+                    <!--                    &lt;!&ndash;                Category2&ndash;&gt;-->
+                    <!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
+                    <!--                        android:layout_width="412dp"-->
+                    <!--                        android:layout_height="140dp"-->
+                    <!--                        app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout5">-->
+
+                    <!--                        <androidx.constraintlayout.widget.ConstraintLayout-->
+                    <!--                            android:id="@+id/constraintLayout6"-->
+                    <!--                            android:layout_width="190dp"-->
+                    <!--                            android:layout_height="138dp"-->
+                    <!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+                    <!--                            app:layout_constraintStart_toStartOf="parent"-->
+                    <!--                            app:layout_constraintTop_toTopOf="parent">-->
+
+                    <!--                            <ImageButton-->
+                    <!--                                android:id="@+id/imageButton5"-->
+                    <!--                                android:layout_width="match_parent"-->
+                    <!--                                android:layout_height="97dp"-->
+                    <!--                                android:src="@mipmap/barbershop"-->
+                    <!--                                app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--                                app:layout_constraintStart_toStartOf="parent"-->
+                    <!--                                app:layout_constraintTop_toTopOf="parent" />-->
+
+                    <!--                            <TextView-->
+                    <!--                                android:id="@+id/textView17"-->
+                    <!--                                android:layout_width="wrap_content"-->
+                    <!--                                android:layout_height="wrap_content"-->
+                    <!--                                android:layout_marginTop="12dp"-->
+                    <!--                                android:text="Combo Hair cut"-->
+                    <!--                                android:textColor="@color/white"-->
+                    <!--                                app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--                                app:layout_constraintHorizontal_bias="0.496"-->
+                    <!--                                app:layout_constraintStart_toStartOf="parent"-->
+                    <!--                                app:layout_constraintTop_toBottomOf="@+id/imageButton5" />-->
+                    <!--                        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+                    <!--                        <androidx.constraintlayout.widget.ConstraintLayout-->
+                    <!--                            android:layout_width="190dp"-->
+                    <!--                            android:layout_height="138dp"-->
+                    <!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+                    <!--                            app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--                            app:layout_constraintHorizontal_bias="0.968"-->
+                    <!--                            app:layout_constraintStart_toEndOf="@+id/constraintLayout6"-->
+                    <!--                            app:layout_constraintTop_toTopOf="parent"-->
+                    <!--                            app:layout_constraintVertical_bias="0.0">-->
+
+                    <!--                            <ImageButton-->
+                    <!--                                android:id="@+id/imageButton4"-->
+                    <!--                                android:layout_width="match_parent"-->
+                    <!--                                android:layout_height="97dp"-->
+                    <!--                                android:src="@mipmap/barbershop"-->
+                    <!--                                app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--                                app:layout_constraintStart_toStartOf="parent"-->
+                    <!--                                app:layout_constraintTop_toTopOf="parent" />-->
+
+                    <!--                            <TextView-->
+                    <!--                                android:id="@+id/textView10"-->
+                    <!--                                android:layout_width="wrap_content"-->
+                    <!--                                android:layout_height="wrap_content"-->
+                    <!--                                android:layout_marginTop="12dp"-->
+                    <!--                                android:text="Combo Hair cut"-->
+                    <!--                                android:textColor="@color/white"-->
+                    <!--                                app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--                                app:layout_constraintHorizontal_bias="0.496"-->
+                    <!--                                app:layout_constraintStart_toStartOf="parent"-->
+                    <!--                                app:layout_constraintTop_toBottomOf="@+id/imageButton4" />-->
+                    <!--                        </androidx.constraintlayout.widget.ConstraintLayout>-->
+                    <!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+                    <!--                    &lt;!&ndash;                Category3&ndash;&gt;-->
+                    <!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
+                    <!--                        android:layout_width="412dp"-->
+                    <!--                        android:layout_height="400dp"-->
+                    <!--                        app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout5">-->
+
+                    <!--                        <androidx.constraintlayout.widget.ConstraintLayout-->
+                    <!--                            android:id="@+id/constraintLayout7"-->
+                    <!--                            android:layout_width="190dp"-->
+                    <!--                            android:layout_height="138dp"-->
+                    <!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+                    <!--                            app:layout_constraintStart_toStartOf="parent"-->
+                    <!--                            app:layout_constraintTop_toTopOf="parent">-->
+
+                    <!--                            <ImageButton-->
+                    <!--                                android:id="@+id/imageButton6"-->
+                    <!--                                android:layout_width="match_parent"-->
+                    <!--                                android:layout_height="97dp"-->
+                    <!--                                android:src="@mipmap/barbershop"-->
+                    <!--                                app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--                                app:layout_constraintStart_toStartOf="parent"-->
+                    <!--                                app:layout_constraintTop_toTopOf="parent" />-->
+
+                    <!--                            <TextView-->
+                    <!--                                android:id="@+id/textView18"-->
+                    <!--                                android:layout_width="wrap_content"-->
+                    <!--                                android:layout_height="wrap_content"-->
+                    <!--                                android:layout_marginTop="12dp"-->
+                    <!--                                android:text="Combo Hair cut"-->
+                    <!--                                android:textColor="@color/white"-->
+                    <!--                                app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--                                app:layout_constraintHorizontal_bias="0.496"-->
+                    <!--                                app:layout_constraintStart_toStartOf="parent"-->
+                    <!--                                app:layout_constraintTop_toBottomOf="@+id/imageButton6" />-->
+                    <!--                        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+                    <!--                        <androidx.constraintlayout.widget.ConstraintLayout-->
+                    <!--                            android:layout_width="190dp"-->
+                    <!--                            android:layout_height="136dp"-->
+                    <!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+                    <!--                            app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--                            app:layout_constraintHorizontal_bias="1.0"-->
+                    <!--                            app:layout_constraintStart_toEndOf="@+id/constraintLayout7"-->
+                    <!--                            app:layout_constraintTop_toTopOf="parent"-->
+                    <!--                            app:layout_constraintVertical_bias="0.534">-->
+
+                    <!--                            <ImageButton-->
+                    <!--                                android:id="@+id/imageButton9"-->
+                    <!--                                android:layout_width="match_parent"-->
+                    <!--                                android:layout_height="97dp"-->
+                    <!--                                android:src="@mipmap/barbershop"-->
+                    <!--                                app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--                                app:layout_constraintStart_toStartOf="parent"-->
+                    <!--                                app:layout_constraintTop_toTopOf="parent" />-->
+
+                    <!--                            <TextView-->
+                    <!--                                android:id="@+id/textView14"-->
+                    <!--                                android:layout_width="wrap_content"-->
+                    <!--                                android:layout_height="wrap_content"-->
+                    <!--                                android:layout_marginTop="12dp"-->
+                    <!--                                android:text="Combo Hair cut"-->
+                    <!--                                android:textColor="@color/white"-->
+                    <!--                                app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--                                app:layout_constraintHorizontal_bias="0.496"-->
+                    <!--                                app:layout_constraintStart_toStartOf="parent"-->
+                    <!--                                app:layout_constraintTop_toBottomOf="@+id/imageButton9" />-->
+                    <!--                        </androidx.constraintlayout.widget.ConstraintLayout>-->
+                    <!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
+                    <TextView
+                        android:id="@+id/tv_name_category"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="Category"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/recycleView1" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rcvCategory"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_name_category" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <TextView
-                    android:id="@+id/textView11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:text="Categories"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycleView1"
-                    android:layout_width="409dp"
-                    android:layout_height="347dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView11" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </ScrollView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
