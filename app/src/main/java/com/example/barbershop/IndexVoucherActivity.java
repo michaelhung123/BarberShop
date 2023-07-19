@@ -66,6 +66,8 @@ public class IndexVoucherActivity extends AppCompatActivity {
         EditText createCode = view.findViewById(R.id.createCode);
         EditText createValue = view.findViewById(R.id.createValue);
         EditText createQuantity = view.findViewById(R.id.createQuantity);
+        EditText createStartTime = view.findViewById(R.id.createStartTime);
+        EditText createEndTime = view.findViewById(R.id.createEndTime);
         Button btnAdd = view.findViewById(R.id.btnAdd);
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
@@ -73,11 +75,14 @@ public class IndexVoucherActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Voucher voucher = new Voucher();
                 voucher.setName(createName.getText().toString());
+                voucher.setCode(createCode.getText().toString());
                 voucher.setValue(Double.parseDouble(createValue.getText().toString()));
                 voucher.setQuantity(Integer.parseInt(createQuantity.getText().toString()));
-                VoucherDataSource categoryDataSource = new VoucherDataSource(IndexVoucherActivity.this);
+                voucher.setStartTime(createStartTime.getText().toString());
+                voucher.setEndTime(createEndTime.getText().toString());
+                VoucherDataSource voucherDataSource = new VoucherDataSource(IndexVoucherActivity.this);
 //                Toast.makeText(CategoryActivity.this, "Success!", Toast.LENGTH_SHORT).show();
-                if (categoryDataSource.addVoucher(voucher) instanceof Voucher) {
+                if (voucherDataSource.addVoucher(voucher) instanceof Voucher) {
                     Toast.makeText(IndexVoucherActivity.this, "Thêm thành công!", Toast.LENGTH_SHORT).show();
                     vouchers.clear();
                     vouchers.addAll(VoucherDataSource.selectVouchers(IndexVoucherActivity.this));
@@ -99,25 +104,33 @@ public class IndexVoucherActivity extends AppCompatActivity {
         dialog.show();
 
         EditText editName = view.findViewById(R.id.editName);
+        EditText editCode = view.findViewById(R.id.editCode);
         EditText editValue = view.findViewById(R.id.editValue);
         EditText editQuantity = view.findViewById(R.id.editQuantity);
+        EditText editStartTime = view.findViewById(R.id.editStartTime);
+        EditText editEndTime = view.findViewById(R.id.editEndTime);
+
         Button btnUpdate = view.findViewById(R.id.btnUpdate);
         Button btnDelete = view.findViewById(R.id.btnDelete);
 
         Voucher voucher = vouchers.get(pos);
 
         editName.setText(voucher.getName());
+        editCode.setText(voucher.getCode());
         editValue.setText(voucher.getValue().toString());
         editQuantity.setText(voucher.getQuantity().toString());
+        editStartTime.setText(voucher.getStartTime());
+        editEndTime.setText(voucher.getEndTime());
 
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 voucher.setName(editName.getText().toString());
+                voucher.setCode(editCode.getText().toString());
                 voucher.setValue(Double.parseDouble(editValue.getText().toString()));
                 voucher.setQuantity(Integer.parseInt(editQuantity.getText().toString()));
-
-                System.out.println(editName.getText().toString());
+                voucher.setStartTime(editStartTime.getText().toString());
+                voucher.setEndTime(editEndTime.getText().toString());
 
                 if(VoucherDataSource.updateService(IndexVoucherActivity.this, voucher)) {
                     Toast.makeText(IndexVoucherActivity.this, "Cập nhật thành công!", Toast.LENGTH_SHORT).show();

@@ -1,5 +1,7 @@
 package com.example.barbershop.Domain;
 
+import androidx.annotation.NonNull;
+
 public class Voucher {
     private int id;
     private String name;
@@ -86,5 +88,11 @@ public class Voucher {
 
     public void setEndTime(String endTime) {
         this.endTime = endTime;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return this.code + " - " + this.name + " - " + this.value;
     }
 }

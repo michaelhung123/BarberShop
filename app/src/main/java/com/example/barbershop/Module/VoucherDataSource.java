@@ -55,8 +55,8 @@ public class VoucherDataSource {
                 String voucherCode = cursor.getString(2);
                 double voucherValue = cursor.getDouble(3);
                 int voucherQuantity = cursor.getInt(4);
-                String voucherStartTime = cursor.getString(4);
-                String voucherEndTime = cursor.getString(4);
+                String voucherStartTime = cursor.getString(5);
+                String voucherEndTime = cursor.getString(6);
 
                 // Create a Category object
                 Voucher voucher = new Voucher(voucherID, voucherName, voucherCode, voucherValue, voucherQuantity, voucherStartTime, voucherEndTime);

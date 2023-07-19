@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -70,7 +71,7 @@ public class IndexServiceActivity extends AppCompatActivity {
 
         EditText createName = view.findViewById(R.id.createName);
         EditText createDescription = view.findViewById(R.id.createDescription);
-        EditText createFile = view.findViewById(R.id.createFile);
+        ImageView imgView = view.findViewById(R.id.imgView);
         EditText createPrice = view.findViewById(R.id.createPrice);
         Spinner spinnerCategory = view.findViewById(R.id.spnCategory);
         ArrayAdapter adapter = new ArrayAdapter(IndexServiceActivity.this, android.R.layout.simple_spinner_item, categoryNames);
@@ -82,7 +83,7 @@ public class IndexServiceActivity extends AppCompatActivity {
             public void onClick(View v) {
                 service.setName(createName.getText().toString());
                 service.setDescription(createDescription.getText().toString());
-                service.setFilePath(createFile.getText().toString());
+//                service.setFilePath(createFile.getText().toString());
                 service.setPrice(Integer.parseInt(createPrice.getText().toString()));
                 if (serviceDataSource.addService(service) instanceof Service) {
                     Toast.makeText(IndexServiceActivity.this, "Thêm thành công!", Toast.LENGTH_SHORT).show();
