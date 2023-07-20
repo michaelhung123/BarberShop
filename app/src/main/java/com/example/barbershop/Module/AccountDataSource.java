@@ -7,10 +7,13 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.barbershop.Domain.Account;
+import com.example.barbershop.Domain.Category;
+
+import java.util.ArrayList;
 
 public class AccountDataSource {
-    private SQLiteDatabase db;
-    private DatabaseHelper dbHelper;
+    private static SQLiteDatabase db;
+    private static DatabaseHelper dbHelper;
     private String[] allColumns = {
             dbHelper.COLUMN_ACCOUNT_ID,
             dbHelper.COLUMN_USERNAME,
@@ -31,6 +34,43 @@ public class AccountDataSource {
 
     public void close() {
         dbHelper.close();
+    }
+
+    public static ArrayList<Account> selectAccountsRoleUser(Context context) {
+        ArrayList<Account> accounts = new ArrayList<>();
+        DatabaseHelper helper = new DatabaseHelper(context);
+        db = helper.getReadableDatabase();
+        // Define the SELECT query
+        String query = "SELECT * FROM " + dbHelper.ACCOUNT_TABLE + " WHERE " + dbHelper.COLUMN_FOREIGN_ROLEID + " = 3";
+        //SELECT * FROM ACCOUNT WHERE roleID = 3
+
+        // Execute the query
+        Cursor cursor = db.rawQuery(query, null);
+
+        // Iterate through the cursor and retrieve category data
+        if (cursor.moveToFirst()) {
+            do {
+                // Retrieve column values from the cursor
+                int accountID = cursor.getInt(0);
+                String username = cursor.getString(1);
+                String password = cursor.getString(2);
+                String phoneNumber = cursor.getString(3);
+                String email = cursor.getString(4);
+                String gender = cursor.getString(5);
+                String dateOfBirth = cursor.getString(6);
+                int role_ID = cursor.getInt(7);
+
+                // Create a Category object
+                Account account = new Account(accountID, username, password, phoneNumber, email, gender, dateOfBirth, role_ID);
+
+                // Add the category to the list
+                accounts.add(account);
+            } while (cursor.moveToNext());
+        }
+        // Close the cursor
+        cursor.close();
+
+        return accounts;
     }
 
     public Account addAccount(Account account){

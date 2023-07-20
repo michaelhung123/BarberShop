@@ -18,7 +18,7 @@
         android:theme="@style/Theme.BarberShop"
         tools:targetApi="31">
         <activity
-            android:name=".IndexVoucherActivity"
+            android:name=".IndexAccountActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

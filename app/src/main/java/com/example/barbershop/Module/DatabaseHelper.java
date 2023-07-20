@@ -183,11 +183,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void insertVouchersTable(SQLiteDatabase db) {
         String sql = "";
-        sql = "INSERT INTO " + VOUCHERS_TABLE + " VALUES (null, 'Giảm 10k', '10k', 10000, 100, '14/07/2023', '02/09/2023')";
+        sql = "INSERT INTO " + VOUCHERS_TABLE + " VALUES (null, 'Giảm 10k', '10k', 10000, 100, '14-07-2023', '02-09-2023')";
         db.execSQL(sql);
-        sql = "INSERT INTO " + VOUCHERS_TABLE + " VALUES (null, 'Giảm 20k', '20k', 20000, 100, '14/07/2023', '02/09/2023')";
+        sql = "INSERT INTO " + VOUCHERS_TABLE + " VALUES (null, 'Giảm 20k', '20k', 20000, 100, '14-07-2023', '02-09-2023')";
         db.execSQL(sql);
-        sql = "INSERT INTO " + VOUCHERS_TABLE + " VALUES (null, 'Giảm 30k', '30k', 30000, 100, '14/07/2023', '02/09/2023')";
+        sql = "INSERT INTO " + VOUCHERS_TABLE + " VALUES (null, 'Giảm 30k', '30k', 30000, 100, '14-07-2023', '02-09-2023')";
         db.execSQL(sql);
     }
 
