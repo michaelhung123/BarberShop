@@ -68,6 +68,7 @@ public class CategoryDataSource {
         return categories;
     }
 
+
     public Category addCategory(Category cate){
         open();
         ContentValues cv = new ContentValues();

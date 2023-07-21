@@ -1,6 +1,9 @@
 package com.example.barbershop.Adaptor;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,21 +14,25 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.barbershop.Domain.Category;
+import com.example.barbershop.Domain.Service;
 import com.example.barbershop.Module.CategoryDataSource;
+import com.example.barbershop.Module.ServiceDataSource;
 import com.example.barbershop.R;
+import com.example.barbershop.ServiceActivity;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
     private List<Category> categoryList;
     private Context mContext;
+    private int categoryId;
 
 
     public CategoryAdapter(Context mContext) {
         this.mContext = mContext;
     }
-
     public void setData(List<Category> list){
         this.categoryList = list;
         notifyDataSetChanged();
@@ -50,7 +57,27 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         String fileImage = categoryDataSource.getFilePictureForCategory(category.getId());
         holder.title_cate.setText(category.getName());
         Picasso.get().load(fileImage).resize(300,300).into(holder.imgPicCate);
+        holder.imgPicCate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<Service> serviceList;
+                ServiceDataSource serviceDataSource = new ServiceDataSource(mContext);
+                serviceList = serviceDataSource.selectServices(mContext);
+                for (Service service : serviceList){
+                    if(category.getId() == service.getCategory_id()){
+                        //Lưu thông tin của người dùng vừa nhập vào SharedPreferences để hiển thị lên giao diện của HomeFragment
+                        SharedPreferences sharedPreferences = mContext.getSharedPreferences("categoryId", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putInt("categoryId", category.getId()); // Lưu tên người dùng
+                        editor.apply();
+                        Log.d("cate id: ", String.valueOf(category.getId()));
+                        Intent intent = new Intent(mContext, ServiceActivity.class);
+                        mContext.startActivity(intent);
+                    }
+                }
 
+            }
+        });
 
     }
 

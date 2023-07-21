@@ -34,8 +34,10 @@ public class RegisterActivity extends AppCompatActivity {
     TextInputEditText txtEmail;
     TextInputEditText txtPhone;
     TextInputEditText txtDateOfBirth;
+    TextInputEditText txtName;
     ImageView calendarImage;
     Button btnSignUp;
+
     Account acc = new Account();
 
 
@@ -44,7 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register);
 
-
+        txtName = findViewById(R.id.txtName);
         btnSignUp = findViewById(R.id.btnSignUp);
         calendarImage = findViewById(R.id.calendarImageView);
         txtDateOfBirth = findViewById(R.id.txtDateOfBirth);
@@ -65,6 +67,7 @@ public class RegisterActivity extends AppCompatActivity {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                acc.setName(txtName.getText().toString());
                 acc.setUsername(txtUsername.getText().toString());
                 acc.setPassword(txtPassword.getText().toString());
                 acc.setEmail(txtEmail.getText().toString());
@@ -72,6 +75,7 @@ public class RegisterActivity extends AppCompatActivity {
                 acc.setDateOfBirth(txtDateOfBirth.getText().toString());
                 AccountDataSource accountDataSource = new AccountDataSource(RegisterActivity.this);
                 if(txtUsername.getText().toString().isEmpty() ||
+                        txtName.getText().toString().isEmpty() ||
                         txtPassword.getText().toString().isEmpty() ||
                         txtEmail.getText().toString().isEmpty() ||
                         txtPhone.getText().toString().isEmpty() ||

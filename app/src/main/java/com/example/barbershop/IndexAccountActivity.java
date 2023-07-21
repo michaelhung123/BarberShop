@@ -1,10 +1,20 @@
 package com.example.barbershop;
 
+import android.app.Dialog;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Switch;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.barbershop.Domain.Account;
@@ -26,5 +36,31 @@ public class IndexAccountActivity extends AppCompatActivity {
 
         adapterListView = new ArrayAdapter<>(IndexAccountActivity.this, android.R.layout.simple_list_item_1, accounts);
         lvAccounts.setAdapter(adapterListView);
+
+        lvAccounts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                showDialogUpdateAccount(position);
+            }
+        });
+    }
+
+    public void showDialogUpdateAccount(int pos) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(IndexAccountActivity.this);
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_update_account, null);
+        builder.setView(view);
+        Dialog dialog = builder.create();
+        dialog.show();
+
+        Switch swBlock = view.findViewById(R.id.swBlock);
+        Button btnUpdate = view.findViewById(R.id.btnUpdate);
+
+        swBlock.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Log.d("Checked", String.valueOf(swBlock.isChecked()));
+            }
+        });
     }
 }

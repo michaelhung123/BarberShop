@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="180dp"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/black"
+    app:cardCornerRadius="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        android:orientation="vertical"
+        >
+        <ImageButton
+            android:id="@+id/imgPicService"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:src="@mipmap/barbershop"/>
+        <TextView
+            android:id="@+id/title_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="6dp"
+            android:textSize="15dp"
+            android:fontFamily="@font/gilroy_bold"
+            android:text="Tiêu đề"
+            android:textColor="#FF0000"
+            />
+        <TextView
+            android:id="@+id/serviceDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="6dp"
+            android:textSize="10dp"
+            android:text="Description Description DescriptionDescription"
+            android:textColor="@color/white"
+            />
+        <TextView
+            android:id="@+id/priceService"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="6dp"
+            android:textSize="17dp"
+            android:text="20"
+            android:textColor="@color/green_custom"
+            />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
