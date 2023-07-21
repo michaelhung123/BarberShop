@@ -17,12 +17,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // TABLE ACCOUNT
     public static final String ACCOUNT_TABLE = "ACCOUNT";
     public static final String COLUMN_ACCOUNT_ID = "ID";
+    public static final String COLUMN_NAME = "NAME";
     public static final String COLUMN_USERNAME = "USERNAME";
     public static final String COLUMN_PASSWORD = "PASSWORD";
     public static final String COLUMN_PHONENUMBER = "PHONE";
     public static final String COLUMN_EMAIL = "EMAIL";
     public static final String COLUMN_GENDER = "GENDER";
     public static final String COLUMN_DATEOFBIRTH = "DATE_OF_BIRTH";
+    public static final String COLUMN_ACCOUNT_FILE_PICTURE = "AVATAR";
     public static final String COLUMN_FOREIGN_ROLEID = "roleID";
 
     //TABLE ROLE
@@ -60,18 +62,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     public DatabaseHelper(@Nullable Context context) {
-        super(context, "barber.db", null, 15);
+        super(context, "barber.db", null, 21);
     }
-
     //this is called the first time a database is accessed. There should be code in here to create a new database
     @Override
     public void onCreate(SQLiteDatabase db) {
         //ACCOUNT
         createAccountTable(db);
-
+        insertAccountTable(db);
         //ROLE
         createRoleTable(db);
-
+        insertRolesTable(db);
         //CATEGORIES
         createCategoriesTable(db);
         insertCategoriesTable(db);
@@ -99,12 +100,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void createAccountTable(SQLiteDatabase db) {
         String createTableAccount = "CREATE TABLE IF NOT EXISTS " + ACCOUNT_TABLE + " (" +
                 COLUMN_ACCOUNT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_NAME + " TEXT, " +
                 COLUMN_USERNAME + " TEXT, " +
                 COLUMN_PASSWORD + " TEXT, " +
                 COLUMN_PHONENUMBER + " TEXT, " +
                 COLUMN_EMAIL + " TEXT, " +
                 COLUMN_GENDER + " TEXT, " +
                 COLUMN_DATEOFBIRTH + " TEXT, " +
+                COLUMN_ACCOUNT_FILE_PICTURE + " TEXT, " +
                 COLUMN_FOREIGN_ROLEID + " INTEGER REFERENCES " + ROLE_TABLE + "("+ COLUMN_ROLE_ID + ")" +
                 ")";
 
@@ -200,18 +203,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    public void setDefaultRoles() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues cv = new ContentValues();
+    public void insertRolesTable(SQLiteDatabase db) {
+        String sql = "";
+        sql = "INSERT INTO " + ROLE_TABLE + " VALUES (null,'admin')";
+        db.execSQL(sql);
+        sql = "INSERT INTO " + ROLE_TABLE + " VALUES (null,'staff')";
+        db.execSQL(sql);
+        sql = "INSERT INTO " + ROLE_TABLE + " VALUES (null, 'user')";
+        db.execSQL(sql);
+    }
 
-        cv.put(COLUMN_ROLE_NAME, "admin");
-        db.insert(ROLE_TABLE, null, cv);
+    public void insertAccountTable(SQLiteDatabase db) {
+        //admin
+        String sql = "";
+        sql = "INSERT INTO " + ACCOUNT_TABLE + " VALUES (null,'ADMIN', 'admin', '1', '0901248851', 'admin@gmail.com', 'Nam', '22-07-2001', 'https://res.cloudinary.com/dgm68hajt/image/upload/v1689830191/user_ppwwwc.png', 1 )";
+        db.execSQL(sql);
 
-        cv.put(COLUMN_ROLE_NAME, "barber");
-        db.insert(ROLE_TABLE, null, cv);
+        //staff
+        sql = "INSERT INTO " + ACCOUNT_TABLE + " VALUES (null,'VU KIET', 'koozu', '1', '0901248851', 'admin@gmail.com', 'Nam', '22-07-2001', 'https://res.cloudinary.com/dgm68hajt/image/upload/v1689830191/user_ppwwwc.png', 2 )";
+        db.execSQL(sql);
+        sql = "INSERT INTO " + ACCOUNT_TABLE + " VALUES (null,'VU KIET', 'koozu', '1', '0901248851', 'admin@gmail.com', 'Nam', '22-07-2001', 'https://res.cloudinary.com/dgm68hajt/image/upload/v1689830191/user_ppwwwc.png', 2 )";
+        db.execSQL(sql);
+        sql = "INSERT INTO " + ACCOUNT_TABLE + " VALUES (null,'VU KIET', 'koozu', '1', '0901248851', 'admin@gmail.com', 'Nam', '22-07-2001', 'https://res.cloudinary.com/dgm68hajt/image/upload/v1689830191/user_ppwwwc.png', 2 )";
+        db.execSQL(sql);
+        sql = "INSERT INTO " + ACCOUNT_TABLE + " VALUES (null,'VU KIET', 'koozu', '1', '0901248851', 'admin@gmail.com', 'Nam', '22-07-2001', 'https://res.cloudinary.com/dgm68hajt/image/upload/v1689830191/user_ppwwwc.png', 2 )";
+        db.execSQL(sql);
+        sql = "INSERT INTO " + ACCOUNT_TABLE + " VALUES (null,'VU KIET', 'koozu', '1', '0901248851', 'admin@gmail.com', 'Nam', '22-07-2001', 'https://res.cloudinary.com/dgm68hajt/image/upload/v1689830191/user_ppwwwc.png', 2 )";
+        db.execSQL(sql);
 
-        cv.put(COLUMN_ROLE_NAME, "user");
-        db.insert(ROLE_TABLE, null, cv);
+        //user
+        sql = "INSERT INTO " + ACCOUNT_TABLE + " VALUES (null,'CAU BON', 'caubon', '1', '0901248851', 'admin@gmail.com', 'Nam', '22-07-2001', 'https://res.cloudinary.com/dgm68hajt/image/upload/v1689830191/user_ppwwwc.png', 3 )";
+        db.execSQL(sql);
     }
 
 

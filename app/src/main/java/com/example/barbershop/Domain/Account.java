@@ -5,15 +5,31 @@ import java.time.LocalDate;
 
 public class Account {
     private int id;
-
+    private String name;
     private String username;
     private String password;
     private String email;
     private String phone;
     private String dateOfBirth;
     private String gender;
+    private String avatar = "https://res.cloudinary.com/dgm68hajt/image/upload/v1689830191/user_ppwwwc.png";
     private int roleId = 3;
 
+    //Staff
+    public Account(int id, String name, String username, String password, String email, String phone, String dateOfBirth, String gender,String avatar, int roleId) {
+        this.id = id;
+        this.name = name;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.phone = phone;
+        this.dateOfBirth = dateOfBirth;
+        this.gender = gender;
+        this.avatar = avatar;
+        this.roleId = roleId;
+    }
+
+    //User
     public Account(int id, String username, String password, String email, String phone, String dateOfBirth, String gender, int roleId) {
         this.id = id;
         this.username = username;
@@ -109,5 +125,21 @@ public class Account {
     public void setRoleId(int roleId) {
         this.roleId = roleId;
     }
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
 }
 

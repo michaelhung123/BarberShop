@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.example.barbershop.Domain.Category;
 import com.example.barbershop.Domain.Service;
@@ -52,7 +53,7 @@ public class ServiceDataSource {
                 // Retrieve column values from the cursor
                 int serviceId = cursor.getInt(0);
                 String serviceName = cursor.getString(1);
-                Double servicePrice = cursor.getDouble(2);
+                double servicePrice = cursor.getDouble(2);
                 String serviceDescription = cursor.getString(3);
                 String serviceFilePicture = cursor.getString(4);
                 int serviceCategoryId = cursor.getInt(5);
@@ -67,6 +68,37 @@ public class ServiceDataSource {
         // Close the cursor
         cursor.close();
 
+        return services;
+    }
+    public  ArrayList<Service> getService_CategoryId(Context context, int categoryId) {
+        ArrayList<Service> services = new ArrayList<>();
+        dbHelper = new DatabaseHelper(context);
+        db = dbHelper.getWritableDatabase();
+        String query = "SELECT * FROM " + dbHelper.SERVICES_TABLE +
+                " INNER JOIN " + dbHelper.CATEGORIES_TABLE +
+                " ON " + dbHelper.SERVICES_TABLE + "." + dbHelper.COLUMN_SERVICE_CATEGORY_ID + " = " + dbHelper.CATEGORIES_TABLE + "." + dbHelper.COLUMN_CATEGORY_ID +
+                " WHERE " + dbHelper.SERVICES_TABLE + "." + dbHelper.COLUMN_SERVICE_CATEGORY_ID + " = ?";
+
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(categoryId)});
+        // Iterate through the cursor and retrieve category data
+        if (cursor.moveToFirst()) {
+            do {
+                // Retrieve column values from the cursor
+                int serviceId = cursor.getInt(0);
+                String serviceName = cursor.getString(1);
+                double servicePrice = cursor.getDouble(2);
+                String serviceDescription = cursor.getString(3);
+                String serviceFilePicture = cursor.getString(4);
+                int serviceCategoryId = cursor.getInt(5);
+
+                Service service = new Service(serviceId, serviceName, servicePrice, serviceDescription, serviceFilePicture, serviceCategoryId);
+
+                services.add(service);
+
+            } while (cursor.moveToNext());
+        }
+        // Close the cursor
+        cursor.close();
         return services;
     }
 
@@ -112,5 +144,19 @@ public class ServiceDataSource {
         serv.setName(cursor.getString(0));
         serv.setCategory_id(cursor.getInt(1));
         return serv;
+    }
+
+    public String getFilePictureForCategory(int serviceId) {
+        db = dbHelper.getReadableDatabase();
+        String[] projection = {dbHelper.COLUMN_SERVICE_FILE};
+        String selection = dbHelper.COLUMN_SERVICE_ID + "=?";
+        String[] selectionArgs = {String.valueOf(serviceId)};
+        Cursor cursor = db.query(dbHelper.SERVICES_TABLE, projection, selection, selectionArgs, null, null, null);
+        String filePicture = null;
+        if (cursor.moveToFirst()) {
+            filePicture = cursor.getString(cursor.getColumnIndexOrThrow(dbHelper.COLUMN_SERVICE_FILE));
+        }
+        cursor.close();
+        return filePicture;
     }
 }

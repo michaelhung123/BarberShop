@@ -1,11 +1,14 @@
 package com.example.barbershop;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,11 +18,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.example.barbershop.Adaptor.CategoryAdapter;
+import com.example.barbershop.Adaptor.ServiceAdapter;
 import com.example.barbershop.Domain.Account;
 import com.example.barbershop.Domain.Category;
+import com.example.barbershop.Module.AccountDataSource;
 import com.example.barbershop.Module.CategoryDataSource;
 import com.google.android.material.textfield.TextInputEditText;
 import com.example.barbershop.Adaptor.StaffAdapter;
@@ -45,6 +52,7 @@ public class HomeFragment extends Fragment {
     private String mParam2;
     TextView txtName;
     TextInputEditText txtUsername;
+    ImageButton imgPicCate;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -75,6 +83,7 @@ public class HomeFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
@@ -87,28 +96,13 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        RecyclerView recyclerViewCategoryList = view.findViewById(R.id.recycleView1);
+
+        StaffAdapter staffAdapter = new StaffAdapter(getActivity());
+        RecyclerView rcvStaff = view.findViewById(R.id.rcvStaff);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        recyclerViewCategoryList.setLayoutManager(linearLayoutManager);
-
-        ArrayList<Staff> staff = new ArrayList<>();
-        staff.add(new Staff("Hair cut", "pic1"));
-        staff.add(new Staff("Hair cut", "pic2"));
-        staff.add(new Staff("Hair cut", "pic3"));
-        staff.add(new Staff("Hair cut", "pic4"));
-        staff.add(new Staff("Hair cut", "pic5"));
-        staff.add(new Staff("Hair cut", "pic6"));
-
-        StaffAdapter adapter = new StaffAdapter(staff);
-        recyclerViewCategoryList.setAdapter(adapter);
-
-        txtName = view.findViewById(R.id.txtName);
-        // Đọc thông tin người dùng từ SharedPreferences
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("UserData", Context.MODE_PRIVATE);
-        String username = sharedPreferences.getString("username", "");
-
-        // Hiển thị thông tin người dùng lên giao diện người dùng
-        txtName.setText(username);
+        rcvStaff.setLayoutManager(linearLayoutManager);
+        staffAdapter.setData(getListStaff());
+        rcvStaff.setAdapter(staffAdapter);
 
         RecyclerView rcvCategory = view.findViewById(R.id.rcvCategory);
         CategoryAdapter categoryAdapter = new CategoryAdapter(getActivity());
@@ -117,12 +111,21 @@ public class HomeFragment extends Fragment {
         rcvCategory.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         categoryAdapter.setData(getListCategory());
         rcvCategory.setAdapter(categoryAdapter);
+
+    }
+
+    private List<Account> getListStaff() {
+        AccountDataSource accountDataSource = new AccountDataSource(getActivity());
+        List<Account> staffList = accountDataSource.selectAccountsRoleStaff(getActivity());
+        return staffList;
     }
 
     private List<Category> getListCategory(){
         CategoryDataSource categoryDataSource = new CategoryDataSource(getActivity());
         List<Category> categoryList = categoryDataSource.selectCategories(getActivity());
-        // Đọc thông tin người dùng từ SharedPreferences
         return categoryList;
     }
+
+
+
 }

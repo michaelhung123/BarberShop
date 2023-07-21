@@ -18,7 +18,16 @@
         android:theme="@style/Theme.BarberShop"
         tools:targetApi="31">
         <activity
-            android:name=".IndexCategoryActivity"
+            android:name=".LoginActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ServiceActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
