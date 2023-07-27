@@ -33,12 +33,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//
-//        ActionBar actionBar = getSupportActionBar();
-//        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-
 
         // Khởi tạo các Fragment
         homeFragment = new HomeFragment();
@@ -70,24 +64,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-
-    //Bắt sự kiện button Back trên Toolbar
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        if (item.getItemId() == android.R.id.home) {
-//            // Tạo Intent để chuyển đến MainActivity
-//            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-//
-//            // Chạy Intent để chuyển đến SecondActivity
-//            startActivity(intent);
-//
-//            // Kết thúc Activity hiện tại (MainActivity) nếu bạn không muốn quay lại nó
-////            finish();
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
 
 }

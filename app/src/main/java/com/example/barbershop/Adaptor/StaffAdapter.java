@@ -1,6 +1,7 @@
 package com.example.barbershop.Adaptor;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import com.example.barbershop.Domain.Staff;
 import com.example.barbershop.Module.AccountDataSource;
 import com.example.barbershop.Module.ServiceDataSource;
 import com.example.barbershop.R;
+import com.example.barbershop.StaffProfileActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -53,8 +55,14 @@ public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.StaffViewHol
         AccountDataSource accountDataSource = new AccountDataSource(mContext);
         String fileImage = accountDataSource.getFilePictureForCategory(account.getId());
         holder.staffName.setText(account.getName());
-        Log.d("staff", String.valueOf(holder.staffName.getText()));
         Picasso.get().load(fileImage).resize(300,300).into(holder.imgPicStaff);
+        holder.imgPicStaff.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, StaffProfileActivity.class);
+                mContext.startActivity(intent);
+            }
+        });
 
     }
 

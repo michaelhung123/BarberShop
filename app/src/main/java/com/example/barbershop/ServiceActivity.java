@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.widget.Toolbar;
 
@@ -28,8 +30,12 @@ import com.example.barbershop.Module.ServiceDataSource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 public class ServiceActivity extends AppCompatActivity {
+    public Button getBtnAddListService() {
+        return btnAddListService;
+    }
+
+    Button btnAddListService;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,8 +47,10 @@ public class ServiceActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
+        btnAddListService = findViewById(R.id.btnAddListService);
+
         RecyclerView rcvService = findViewById(R.id.rcvService);
-        ServiceAdapter serviceAdapter = new ServiceAdapter(this);
+        ServiceAdapter serviceAdapter = new ServiceAdapter(this, btnAddListService);
         LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
         rcvService.setLayoutManager(linearLayoutManager1);
         rcvService.setLayoutManager(new GridLayoutManager(this, 2));

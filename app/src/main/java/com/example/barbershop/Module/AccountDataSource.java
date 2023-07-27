@@ -44,7 +44,7 @@ public class AccountDataSource {
         cv.put(dbHelper.COLUMN_PASSWORD, account.getPassword());
         cv.put(dbHelper.COLUMN_EMAIL, account.getEmail());
         cv.put(dbHelper.COLUMN_PHONENUMBER, account.getPhone());
-        cv.put(dbHelper.COLUMN_DATEOFBIRTH, account.getDateOfBirth().toString());
+        cv.put(dbHelper.COLUMN_DATEOFBIRTH, account.getDateOfBirth());
         cv.put(dbHelper.COLUMN_FOREIGN_ROLEID, account.getRoleId());
         cv.put(dbHelper.COLUMN_GENDER, account.getGender());
 
