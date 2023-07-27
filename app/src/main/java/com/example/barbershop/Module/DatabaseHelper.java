@@ -27,6 +27,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_ACCOUNT_FILE_PICTURE = "AVATAR";
     public static final String COLUMN_FOREIGN_ROLEID = "roleID";
 
+    public static final String COLUMN_IS_BLOCK = "IS_BLOCK";
+
     //TABLE ROLE
     public static final String ROLE_TABLE = "ROLE";
     public static final String COLUMN_ROLE_ID = "ID";
@@ -62,7 +64,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     public DatabaseHelper(@Nullable Context context) {
-        super(context, "barber.db", null, 21);
+        super(context, "barber.db", null, 22);
     }
     //this is called the first time a database is accessed. There should be code in here to create a new database
     @Override
@@ -108,6 +110,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_GENDER + " TEXT, " +
                 COLUMN_DATEOFBIRTH + " TEXT, " +
                 COLUMN_ACCOUNT_FILE_PICTURE + " TEXT, " +
+                COLUMN_IS_BLOCK + " INTEGER, " +
                 COLUMN_FOREIGN_ROLEID + " INTEGER REFERENCES " + ROLE_TABLE + "("+ COLUMN_ROLE_ID + ")" +
                 ")";
 
@@ -186,11 +189,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void insertVouchersTable(SQLiteDatabase db) {
         String sql = "";
-        sql = "INSERT INTO " + VOUCHERS_TABLE + " VALUES (null, 'Giảm 10k', '10k', 10000, 100, '14/07/2023', '02/09/2023')";
+        sql = "INSERT INTO " + VOUCHERS_TABLE + " VALUES (null, 'Giảm 10k', '10k', 10000, 100, '14-07-2023', '02-09-2023')";
         db.execSQL(sql);
-        sql = "INSERT INTO " + VOUCHERS_TABLE + " VALUES (null, 'Giảm 20k', '20k', 20000, 100, '14/07/2023', '02/09/2023')";
+        sql = "INSERT INTO " + VOUCHERS_TABLE + " VALUES (null, 'Giảm 20k', '20k', 20000, 100, '14-07-2023', '02-09-2023')";
         db.execSQL(sql);
-        sql = "INSERT INTO " + VOUCHERS_TABLE + " VALUES (null, 'Giảm 30k', '30k', 30000, 100, '14/07/2023', '02/09/2023')";
+        sql = "INSERT INTO " + VOUCHERS_TABLE + " VALUES (null, 'Giảm 30k', '30k', 30000, 100, '14-07-2023', '02-09-2023')";
         db.execSQL(sql);
     }
 
@@ -216,61 +219,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void insertAccountTable(SQLiteDatabase db) {
         //admin
         String sql = "";
-        sql = "INSERT INTO " + ACCOUNT_TABLE + " VALUES (null,'ADMIN', 'admin', '1', '0901248851', 'admin@gmail.com', 'Nam', '22-07-2001', 'https://res.cloudinary.com/dgm68hajt/image/upload/v1689830191/user_ppwwwc.png', 1 )";
+        sql = "INSERT INTO " + ACCOUNT_TABLE + " VALUES (null,'ADMIN', 'admin', '1', '0901248851', 'admin@gmail.com', 'Nam', '22-07-2001', 'https://res.cloudinary.com/dgm68hajt/image/upload/v1689830191/user_ppwwwc.png', 0, 1 )";
         db.execSQL(sql);
 
         //staff
-        sql = "INSERT INTO " + ACCOUNT_TABLE + " VALUES (null,'VU KIET', 'koozu', '1', '0901248851', 'admin@gmail.com', 'Nam', '22-07-2001', 'https://res.cloudinary.com/dgm68hajt/image/upload/v1689830191/user_ppwwwc.png', 2 )";
+        sql = "INSERT INTO " + ACCOUNT_TABLE + " VALUES (null,'VU KIET', 'koozu', '1', '0901248851', 'admin@gmail.com', 'Nam', '22-07-2001', 'https://res.cloudinary.com/dgm68hajt/image/upload/v1689830191/user_ppwwwc.png', 0, 2 )";
         db.execSQL(sql);
-        sql = "INSERT INTO " + ACCOUNT_TABLE + " VALUES (null,'VU KIET', 'koozu', '1', '0901248851', 'admin@gmail.com', 'Nam', '22-07-2001', 'https://res.cloudinary.com/dgm68hajt/image/upload/v1689830191/user_ppwwwc.png', 2 )";
+        sql = "INSERT INTO " + ACCOUNT_TABLE + " VALUES (null,'VU KIET', 'koozu', '1', '0901248851', 'admin@gmail.com', 'Nam', '22-07-2001', 'https://res.cloudinary.com/dgm68hajt/image/upload/v1689830191/user_ppwwwc.png', 0, 2 )";
         db.execSQL(sql);
-        sql = "INSERT INTO " + ACCOUNT_TABLE + " VALUES (null,'VU KIET', 'koozu', '1', '0901248851', 'admin@gmail.com', 'Nam', '22-07-2001', 'https://res.cloudinary.com/dgm68hajt/image/upload/v1689830191/user_ppwwwc.png', 2 )";
+        sql = "INSERT INTO " + ACCOUNT_TABLE + " VALUES (null,'VU KIET', 'koozu', '1', '0901248851', 'admin@gmail.com', 'Nam', '22-07-2001', 'https://res.cloudinary.com/dgm68hajt/image/upload/v1689830191/user_ppwwwc.png', 0, 2 )";
         db.execSQL(sql);
-        sql = "INSERT INTO " + ACCOUNT_TABLE + " VALUES (null,'VU KIET', 'koozu', '1', '0901248851', 'admin@gmail.com', 'Nam', '22-07-2001', 'https://res.cloudinary.com/dgm68hajt/image/upload/v1689830191/user_ppwwwc.png', 2 )";
+        sql = "INSERT INTO " + ACCOUNT_TABLE + " VALUES (null,'VU KIET', 'koozu', '1', '0901248851', 'admin@gmail.com', 'Nam', '22-07-2001', 'https://res.cloudinary.com/dgm68hajt/image/upload/v1689830191/user_ppwwwc.png', 0, 2 )";
         db.execSQL(sql);
-        sql = "INSERT INTO " + ACCOUNT_TABLE + " VALUES (null,'VU KIET', 'koozu', '1', '0901248851', 'admin@gmail.com', 'Nam', '22-07-2001', 'https://res.cloudinary.com/dgm68hajt/image/upload/v1689830191/user_ppwwwc.png', 2 )";
+        sql = "INSERT INTO " + ACCOUNT_TABLE + " VALUES (null,'VU KIET', 'koozu', '1', '0901248851', 'admin@gmail.com', 'Nam', '22-07-2001', 'https://res.cloudinary.com/dgm68hajt/image/upload/v1689830191/user_ppwwwc.png', 0, 2 )";
         db.execSQL(sql);
 
         //user
-        sql = "INSERT INTO " + ACCOUNT_TABLE + " VALUES (null,'CAU BON', 'caubon', '1', '0901248851', 'admin@gmail.com', 'Nam', '22-07-2001', 'https://res.cloudinary.com/dgm68hajt/image/upload/v1689830191/user_ppwwwc.png', 3 )";
+        sql = "INSERT INTO " + ACCOUNT_TABLE + " VALUES (null,'CAU BON', 'caubon', '1', '0901248851', 'admin@gmail.com', 'Nam', '22-07-2001', 'https://res.cloudinary.com/dgm68hajt/image/upload/v1689830191/user_ppwwwc.png', 0, 3 )";
         db.execSQL(sql);
     }
-
-
-    public List<Account> getAccounts() {
-        List<Account> accountList = new ArrayList<>();
-
-        String queryString = "SELECT * FROM " + ACCOUNT_TABLE;
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(queryString, null);
-        if (cursor.moveToFirst()) {
-            do {
-                int accountId = cursor.getInt(0);
-                String userAccount = cursor.getString(1);
-                String passwordAccount = cursor.getString(2);
-
-                Account newAccount = new Account(accountId, userAccount, passwordAccount);
-                accountList.add(newAccount);
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        db.close();
-        return accountList;
-    }
-
-    public boolean checkAccount(String username, String password) {
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        String[] columns = {COLUMN_ACCOUNT_ID};
-        String selection = COLUMN_USERNAME + " = ? AND " + COLUMN_PASSWORD + " = ?";
-        String[] selectionArgs = {username, password};
-
-        Cursor cursor = db.query(ACCOUNT_TABLE, columns, selection, selectionArgs, null, null, null);
-        int count = cursor.getCount();
-        cursor.close();
-
-        return count > 0;
-    }
-
-
 }

@@ -26,14 +26,20 @@
         android:id="@+id/editQuantity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-    <EditText
+    <Button
         android:id="@+id/editStartTime"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <EditText
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="Ngày bắt đầu"
+        android:textAllCaps="false" />
+    <Button
         android:id="@+id/editEndTime"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="Ngày kết thúc"
+        android:textAllCaps="false" />
     <Button
         android:id="@+id/btnUpdate"
         android:layout_width="match_parent"

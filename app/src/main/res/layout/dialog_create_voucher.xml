@@ -30,16 +30,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Nhập số lượng"/>
-    <EditText
+    <Button
         android:id="@+id/createStartTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nhập ngày bắt đầu"/>
-    <EditText
+        android:layout_centerInParent="true"
+        android:text="Ngày bắt đầu"
+        android:textAllCaps="false" />
+    <Button
         android:id="@+id/createEndTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nhập ngày kết thúc"/>
+        android:layout_centerInParent="true"
+        android:text="Ngày kết thúc"
+        android:textAllCaps="false" />
     <Button
         android:id="@+id/btnAdd"
         android:layout_width="match_parent"

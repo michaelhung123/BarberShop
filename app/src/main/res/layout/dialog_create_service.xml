@@ -25,11 +25,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Nhập mô tả"/>
-    <EditText
-        android:id="@+id/createFile"
+    <ImageView
+        android:id="@+id/imgView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nhập tên file"/>
+        android:layout_marginStart="36dp"
+        android:src="@mipmap/ic_launcher" />
     <Spinner
         android:id="@+id/spnCategory"
         android:layout_width="match_parent"
