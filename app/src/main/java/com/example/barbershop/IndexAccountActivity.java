@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.barbershop.Domain.Account;
 import com.example.barbershop.Module.AccountDataSource;
+import com.example.barbershop.Module.CategoryDataSource;
 
 import java.util.ArrayList;
 
@@ -56,10 +57,30 @@ public class IndexAccountActivity extends AppCompatActivity {
         Switch swBlock = view.findViewById(R.id.swBlock);
         Button btnUpdate = view.findViewById(R.id.btnUpdate);
 
+        Account acc = accounts.get(pos);
+
+//        Log.d("Account is block: ", String.valueOf(acc.getIs_Block()));
+        Log.d("Account username: ", acc.getUsername());
+
+        swBlock.setChecked(acc.getIs_Block());
+
+        Log.d("swBlock check:", String.valueOf(swBlock.isChecked()));
+
         swBlock.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Log.d("Checked", String.valueOf(swBlock.isChecked()));
+                acc.setIs_Block(isChecked);
+            }
+        });
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AccountDataSource.updateAccount(IndexAccountActivity.this, acc);
+                accounts.clear();
+                accounts.addAll(AccountDataSource.selectAccountsRoleUser(IndexAccountActivity.this));
+                adapterListView.notifyDataSetChanged();
+                dialog.dismiss();
             }
         });
     }

@@ -25,7 +25,8 @@ public class AccountDataSource {
             dbHelper.COLUMN_GENDER,
             dbHelper.COLUMN_DATEOFBIRTH,
             dbHelper.COLUMN_FOREIGN_ROLEID,
-            dbHelper.COLUMN_NAME
+            dbHelper.COLUMN_NAME,
+            dbHelper.COLUMN_IS_BLOCK
     };
 
     public AccountDataSource(Context context){
@@ -50,21 +51,29 @@ public class AccountDataSource {
         // Execute the query
         Cursor cursor = db.rawQuery(query, null);
 
+//        boolean isBlock = false;
+//        int columnIndex = cursor.getColumnIndex(dbHelper.COLUMN_IS_BLOCK);
+
         // Iterate through the cursor and retrieve category data
         if (cursor.moveToFirst()) {
             do {
                 // Retrieve column values from the cursor
                 int accountID = cursor.getInt(0);
-                String username = cursor.getString(1);
-                String password = cursor.getString(2);
-                String phoneNumber = cursor.getString(3);
-                String email = cursor.getString(4);
-                String gender = cursor.getString(5);
-                String dateOfBirth = cursor.getString(6);
-                int role_ID = cursor.getInt(7);
+                String name = cursor.getString(1);
+                String username = cursor.getString(2);
+                String password = cursor.getString(3);
+                String phoneNumber = cursor.getString(4);
+                String email = cursor.getString(5);
+                String gender = cursor.getString(6);
+                String dateOfBirth = cursor.getString(7);
+                String image = cursor.getString(8);
+//                isBlock = cursor.getInt(columnIndex) == 1;
+                boolean is_block =cursor.getInt(9) == 1;
+                int role_ID = cursor.getInt(10);
+//                boolean is_block = cursor.get
 
                 // Create a Category object
-                Account account = new Account(accountID, username, password, phoneNumber, email, gender, dateOfBirth, role_ID);
+                Account account = new Account(accountID, name, username, password, email, phoneNumber, dateOfBirth, gender, image, is_block, role_ID);
 
                 // Add the category to the list
                 accounts.add(account);
@@ -174,5 +183,14 @@ public class AccountDataSource {
         cursor.close();
 
         return accounts;
+    }
+
+    public static boolean updateAccount(Context context, Account acc) {
+        dbHelper = new DatabaseHelper(context);
+        db = dbHelper.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(dbHelper.COLUMN_IS_BLOCK, acc.getIs_Block());
+        int updateAccount = db.update(dbHelper.ACCOUNT_TABLE, cv, dbHelper.COLUMN_ACCOUNT_ID + " = ?", new String[]{Integer.toString(acc.getId())});
+        return updateAccount > 0;
     }
 }
