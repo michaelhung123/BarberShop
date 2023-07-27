@@ -1,9 +1,11 @@
 package com.example.barbershop;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -11,6 +13,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +24,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.barbershop.Domain.Account;
 import com.example.barbershop.Module.AccountDataSource;
 import com.example.barbershop.Module.DatabaseHelper;
+import com.example.barbershop.VerificationOTP.SendOTPActivity;
+import com.example.barbershop.VerificationOTP.VerifyOTPActivity;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.time.LocalDate;
@@ -32,12 +37,13 @@ public class RegisterActivity extends AppCompatActivity {
     TextInputEditText txtUsername;
     TextInputEditText txtPassword;
     TextInputEditText txtEmail;
-    TextInputEditText txtPhone;
     TextInputEditText txtDateOfBirth;
     TextInputEditText txtName;
     ImageView calendarImage;
     Button btnSignUp;
-
+    ProgressBar progressBar;
+    TextView text1;
+    TextView textSignIn;
     Account acc = new Account();
 
 
@@ -53,8 +59,10 @@ public class RegisterActivity extends AppCompatActivity {
         txtUsername = findViewById(R.id.txtUsername);
         txtPassword = findViewById(R.id.txtPassword);
         txtEmail = findViewById(R.id.txtEmail);
-        txtPhone = findViewById(R.id.txtPhone);
 
+        progressBar = findViewById(R.id.progressBar);
+        text1 = findViewById(R.id.text1);
+        textSignIn = findViewById(R.id.textSignIn);
         calendarImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,31 +79,52 @@ public class RegisterActivity extends AppCompatActivity {
                 acc.setUsername(txtUsername.getText().toString());
                 acc.setPassword(txtPassword.getText().toString());
                 acc.setEmail(txtEmail.getText().toString());
-                acc.setPhone(txtPhone.getText().toString());
                 acc.setDateOfBirth(txtDateOfBirth.getText().toString());
                 AccountDataSource accountDataSource = new AccountDataSource(RegisterActivity.this);
+
                 if(txtUsername.getText().toString().isEmpty() ||
                         txtName.getText().toString().isEmpty() ||
                         txtPassword.getText().toString().isEmpty() ||
                         txtEmail.getText().toString().isEmpty() ||
-                        txtPhone.getText().toString().isEmpty() ||
                         txtDateOfBirth.getText().toString().isEmpty()){
+
+                    progressBar.setVisibility(View.GONE);
+                    text1.setVisibility(View.VISIBLE);
+                    textSignIn.setVisibility(View.VISIBLE);
+
                     Toast.makeText(RegisterActivity.this, "Please enter complete information !", Toast.LENGTH_SHORT).show();
                 }
-                else if (!isValidPhoneNumber(txtPhone.getText().toString())){
-                    Toast.makeText(RegisterActivity.this, "Please enter correct phone format !", Toast.LENGTH_SHORT).show();
-                }
                 else if(!isValidEmail(txtEmail.getText().toString())){
+                    progressBar.setVisibility(View.GONE);
+                    text1.setVisibility(View.VISIBLE);
+                    textSignIn.setVisibility(View.VISIBLE);
                     Toast.makeText(RegisterActivity.this, "Please enter correct email format !", Toast.LENGTH_SHORT).show();
                 }
-                else if(accountDataSource.addAccount(acc) instanceof Account){
+                else{
+                    progressBar.setVisibility(View.VISIBLE);
+                    text1.setVisibility(View.INVISIBLE);
+                    textSignIn.setVisibility(View.INVISIBLE);
+
+                    Intent intent = new Intent(getApplicationContext(), SendOTPActivity.class);
+                    intent.putExtra("name", acc.getName());
+                    intent.putExtra("username", acc.getUsername());
+                    intent.putExtra("password", acc.getPassword());
+                    intent.putExtra("email", acc.getEmail());
+                    intent.putExtra("date", acc.getDateOfBirth());
+                    intent.putExtra("gender", acc.getGender());
+                    startActivity(intent);
                     Toast.makeText(RegisterActivity.this, "Success!", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(RegisterActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
+        textSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void showDatePicker(View view) {
@@ -154,12 +183,13 @@ public class RegisterActivity extends AppCompatActivity {
         return email.matches(emailPattern);
     }
 
-    //Kiểm tra số điện thoại
-    private boolean isValidPhoneNumber(String phoneNumber) {
-        // Kiểm tra định dạng số điện thoại: bắt đầu bằng số 0, gồm 10 chữ số
-        String phonePattern = "0\\d{9}";
-        return phoneNumber.matches(phonePattern);
-    }
+    //Đừng có xóa cái này nghe
+//    //Kiểm tra số điện thoại
+//    private boolean isValidPhoneNumber(String phoneNumber) {
+//        // Kiểm tra định dạng số điện thoại: bắt đầu bằng số 0, gồm 10 chữ số
+//        String phonePattern = "0\\d{9}";
+//        return phoneNumber.matches(phonePattern);
+//    }
 
 
 }

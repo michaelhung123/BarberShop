@@ -1,5 +1,8 @@
 plugins {
     id 'com.android.application'
+
+    //google-service (firebase)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -57,4 +60,9 @@ dependencies {
 
     //Cloudinary sdk
     implementation 'com.cloudinary:cloudinary-android:2.3.1'
+
+    // Import the Firebase BoM
+    implementation(platform("com.google.firebase:firebase-bom:32.2.0"))
+
+    implementation 'com.google.firebase:firebase-auth:19.3.2'
 }

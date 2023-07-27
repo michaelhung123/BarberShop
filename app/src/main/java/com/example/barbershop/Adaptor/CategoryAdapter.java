@@ -70,7 +70,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putInt("categoryId", category.getId()); // Lưu tên người dùng
                         editor.apply();
-                        Log.d("cate id: ", String.valueOf(category.getId()));
                         Intent intent = new Intent(mContext, ServiceActivity.class);
                         mContext.startActivity(intent);
                     }
