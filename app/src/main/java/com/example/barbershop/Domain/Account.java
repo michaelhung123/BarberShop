@@ -70,7 +70,7 @@ public class Account {
 
     @Override
     public String toString() {
-        return this.name + " " + this.username;
+        return this.name;
     }
 
     //Getter and Setter

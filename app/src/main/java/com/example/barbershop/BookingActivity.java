@@ -42,6 +42,8 @@ public class BookingActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.booking_layout);
+        AccountDataSource accountDataSource = new AccountDataSource(this);
+        Booking booking = new Booking();
 
         spinnerStaff = findViewById(R.id.spinnerStaff);
         spinnerStaffSelected = findViewById(R.id.spinnerStaffSelected);
@@ -55,6 +57,9 @@ public class BookingActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 spinnerStaffSelected.setText(spinnerStaff.getSelectedItem().toString());
+                int staffId = accountDataSource.getStaffIdByUsername(spinnerStaffSelected.getText().toString());
+                booking.setStaffId(staffId);
+                Log.d("staff1", String.valueOf(staffId));
             }
 
             @Override
@@ -62,7 +67,6 @@ public class BookingActivity extends AppCompatActivity {
 
             }
         });
-
         ServiceActivity serviceActivity = new ServiceActivity();
         serviceActivity.getBtnAddListService();
 
@@ -75,8 +79,6 @@ public class BookingActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
         int userId = sharedPreferences.getInt("userId", -1); // -1 là giá trị mặc định nếu không tìm thấy ID
-
-        Booking booking = new Booking();
         booking.setUserId(userId);
         Log.d("user1", String.valueOf(booking.getUserId()));
     }

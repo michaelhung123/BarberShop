@@ -18,6 +18,7 @@ public class AccountDataSource {
     private static DatabaseHelper dbHelper;
     private String[] allColumns = {
             dbHelper.COLUMN_ACCOUNT_ID,
+            dbHelper.COLUMN_NAME,
             dbHelper.COLUMN_USERNAME,
             dbHelper.COLUMN_PASSWORD,
             dbHelper.COLUMN_PHONENUMBER,
@@ -25,7 +26,6 @@ public class AccountDataSource {
             dbHelper.COLUMN_GENDER,
             dbHelper.COLUMN_DATEOFBIRTH,
             dbHelper.COLUMN_FOREIGN_ROLEID,
-            dbHelper.COLUMN_NAME,
             dbHelper.COLUMN_IS_BLOCK
     };
 
@@ -148,6 +148,22 @@ public class AccountDataSource {
         return userId;
     }
 
+    public int getStaffIdByUsername(String name) {
+        int staffId = -1;
+        db = dbHelper.getReadableDatabase();
+        // Tạo câu truy vấn SQL để lấy ID người dùng dựa vào tên người dùng
+        String query = "SELECT " + dbHelper.COLUMN_ACCOUNT_ID + " FROM " + dbHelper.ACCOUNT_TABLE +
+                " WHERE " + dbHelper.COLUMN_NAME + " = ?" + "AND " + dbHelper.COLUMN_FOREIGN_ROLEID + " = 2";
+        Cursor cursor = db.rawQuery(query, new String[]{name});
+        if (cursor.moveToFirst()) {
+            // Nếu có kết quả từ câu truy vấn, lấy ID người dùng từ cột COLUMN_ACCOUNT_ID
+            staffId = cursor.getInt(cursor.getColumnIndexOrThrow(dbHelper.COLUMN_ACCOUNT_ID));
+        }
+        cursor.close();
+        db.close();
+        return staffId;
+    }
+
     public String getFilePictureForCategory(int staffId) {
         db = dbHelper.getReadableDatabase();
         String[] projection = {dbHelper.COLUMN_ACCOUNT_FILE_PICTURE};
@@ -189,7 +205,7 @@ public class AccountDataSource {
                 int role_ID = cursor.getInt(9);
 
                 // Create a Category object
-                Account account = new Account(accountID,name, username, password, phoneNumber, email, gender, dateOfBirth, avatar, role_ID);
+                Account account = new Account(accountID, name, username, password, phoneNumber, email, gender, dateOfBirth, avatar, role_ID);
 
                 // Add the category to the list
                 accounts.add(account);
