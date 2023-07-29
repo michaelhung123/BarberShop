@@ -64,10 +64,12 @@ public class LoginActivity extends AppCompatActivity {
                 else {
                     Toast.makeText(LoginActivity.this, "Đăng nhập thành công !", Toast.LENGTH_SHORT).show();
 
-                    //Lưu thông tin của người dùng vừa nhập vào SharedPreferences để hiển thị lên giao diện của HomeFragment
+                    //Lưu thông tin của người dùng vừa nhập vào SharedPreferences để hiển thị lên giao diện
+                    int userId = accountDataSource.getUserIdByUsername(txtUsername.getText().toString());
                     SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("username", txtUsername.getText().toString()); // Lưu tên người dùng
+                    editor.putInt("userId", userId); // Lưu tên người dùng
                     editor.apply();
 
                     loginSuccess();

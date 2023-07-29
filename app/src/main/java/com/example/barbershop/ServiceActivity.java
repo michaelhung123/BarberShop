@@ -34,7 +34,6 @@ public class ServiceActivity extends AppCompatActivity {
     public Button getBtnAddListService() {
         return btnAddListService;
     }
-
     Button btnAddListService;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,14 +49,28 @@ public class ServiceActivity extends AppCompatActivity {
         btnAddListService = findViewById(R.id.btnAddListService);
 
         RecyclerView rcvService = findViewById(R.id.rcvService);
-        ServiceAdapter serviceAdapter = new ServiceAdapter(this, btnAddListService);
+        ServiceAdapter serviceAdapter = new ServiceAdapter(this, btnAddListService,false);
         LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
         rcvService.setLayoutManager(linearLayoutManager1);
         rcvService.setLayoutManager(new GridLayoutManager(this, 2));
         serviceAdapter.setData(getListService());
         rcvService.setAdapter(serviceAdapter);
+
+        btnAddListService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                serviceAdapter.getSelectedServices();
+                Log.d("service list:", String.valueOf(serviceAdapter.getSelectedServices()));
+                Intent intent = new Intent(ServiceActivity.this, BookingActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
+//    public List<Service> getListSelected() {
+//        Log.d("adapterListSelected2", String.valueOf(selectedServices));
+//        return selectedServices;
+//    }
     private List<Service> getListService() {
             SharedPreferences sharedPreferences = getSharedPreferences("categoryId", Context.MODE_PRIVATE);
             int categoryId = sharedPreferences.getInt("categoryId", -1);

@@ -62,6 +62,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_VOUCHER_START = "START_DAY";
     public static final String COLUMN_VOUCHER_END = "END_DAY";
 
+    //TABLE BOOKING
+    public static final String BOOKING_TABLE = "BOOKING";
+    public static final String COLUMN_BOOKING_ID = "ID";
+    public static final String COLUMN_BOOKING_USER_ID = "USER_ID";
+    public static final String COLUMN_BOOKING_STAFF_ID = "STAFF_ID";
+    public static final String COLUMN_BOOKING_TIME = "BOOKING_TIME";
+    public static final String COLUMN_BOOKING_CREATE_TIME = "CREATE_TIME";
+    public static final String COLUMN_BOOKING_STATUS = "STATUS";
+
+    //TABLE BOOKING_DETAIL
+    public static final String BOOKING_DETAIL_TABLE = "BOOKING_DETAIL";
+    public static final String COLUMN_BOOKING_DETAIL_ID = "ID";
+    public static final String COLUMN_BOOKING_DETAIL_BOOKING_ID = "BOOKING_ID";
+    public static final String COLUMN_BOOKING_DETAIL_SERVICE_ID = "SERVICE_ID";
+
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, "barber.db", null, 22);
@@ -84,6 +99,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //VOUCHERS
         createVouchersTable(db);
         insertVouchersTable(db);
+        //BOOKING
+        createBookingTable(db);
+        //BOOKING DETAIL
+        createBookingDetailTable(db);
     }
 
     //this is called if the database version number changes, It prevents previous users app from breaking when you change the database design
@@ -151,6 +170,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_SERVICE_CATEGORY_ID + " INTEGER REFERENCES " + CATEGORIES_TABLE + "("+ COLUMN_CATEGORY_ID + "))";
 
         db.execSQL(createTableServices);
+    }
+
+    public void createBookingTable(SQLiteDatabase db) {
+        String createTableBooking = "CREATE TABLE IF NOT EXISTS " + BOOKING_TABLE + " (" + COLUMN_BOOKING_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_BOOKING_USER_ID + " INTEGER REFERENCES " + ACCOUNT_TABLE + "(" + COLUMN_ACCOUNT_ID + "), " +
+                COLUMN_BOOKING_STAFF_ID + " INTEGER REFERENCES " + ACCOUNT_TABLE + "(" + COLUMN_ACCOUNT_ID + "), " +
+                COLUMN_BOOKING_TIME + " TEXT, " +
+                COLUMN_BOOKING_STATUS + " TEXT, " +
+                COLUMN_BOOKING_CREATE_TIME + " TEXT)";
+        db.execSQL(createTableBooking);
+    }
+    public void createBookingDetailTable(SQLiteDatabase db) {
+        String createTableBookingDetail = "CREATE TABLE IF NOT EXISTS " + BOOKING_DETAIL_TABLE + " (" + COLUMN_BOOKING_DETAIL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_BOOKING_DETAIL_BOOKING_ID + " INTEGER REFERENCES " + BOOKING_TABLE + "(" + COLUMN_BOOKING_ID + "), " +
+                COLUMN_BOOKING_DETAIL_SERVICE_ID + " INTEGER REFERENCES " + SERVICES_TABLE + "(" + COLUMN_SERVICE_ID + "))";
+        db.execSQL(createTableBookingDetail);
     }
 
     public void insertServicesTable(SQLiteDatabase db) {

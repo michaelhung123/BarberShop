@@ -132,6 +132,22 @@ public class AccountDataSource {
         return count > 0;
     }
 
+    public int getUserIdByUsername(String username) {
+        int userId = -1;
+        db = dbHelper.getReadableDatabase();
+        // Tạo câu truy vấn SQL để lấy ID người dùng dựa vào tên người dùng
+        String query = "SELECT " + dbHelper.COLUMN_ACCOUNT_ID + " FROM " + dbHelper.ACCOUNT_TABLE +
+                " WHERE " + dbHelper.COLUMN_USERNAME + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{username});
+        if (cursor.moveToFirst()) {
+            // Nếu có kết quả từ câu truy vấn, lấy ID người dùng từ cột COLUMN_ACCOUNT_ID
+            userId = cursor.getInt(cursor.getColumnIndexOrThrow(dbHelper.COLUMN_ACCOUNT_ID));
+        }
+        cursor.close();
+        db.close();
+        return userId;
+    }
+
     public String getFilePictureForCategory(int staffId) {
         db = dbHelper.getReadableDatabase();
         String[] projection = {dbHelper.COLUMN_ACCOUNT_FILE_PICTURE};

@@ -63,6 +63,9 @@ dependencies {
 
     // Import the Firebase BoM
     implementation(platform("com.google.firebase:firebase-bom:32.2.0"))
-
+    implementation 'com.google.firebase:firebase-firestore:24.7.0'
     implementation 'com.google.firebase:firebase-auth:19.3.2'
+
+    // Dexter runtime permissions
+    implementation 'com.karumi:dexter:6.2.3'
 }
