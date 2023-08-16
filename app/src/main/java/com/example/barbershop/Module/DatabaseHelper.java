@@ -69,6 +69,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_BOOKING_STAFF_ID = "STAFF_ID";
     public static final String COLUMN_BOOKING_TIME = "BOOKING_TIME";
     public static final String COLUMN_BOOKING_CREATE_TIME = "CREATE_TIME";
+    public static final String COLUMN_BOOKING_SLOT = "SLOT";
+    public static final String COLUMN_BOOKING_TOTAL = "TOTAL";
+
     public static final String COLUMN_BOOKING_STATUS = "STATUS";
 
     //TABLE BOOKING_DETAIL
@@ -79,7 +82,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     public DatabaseHelper(@Nullable Context context) {
-        super(context, "barber.db", null, 22);
+        super(context, "barber.db", null, 26);
     }
     //this is called the first time a database is accessed. There should be code in here to create a new database
     @Override
@@ -101,6 +104,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         insertVouchersTable(db);
         //BOOKING
         createBookingTable(db);
+        insertBookingTable(db);
         //BOOKING DETAIL
         createBookingDetailTable(db);
     }
@@ -114,6 +118,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + CATEGORIES_TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + SERVICES_TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + VOUCHERS_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + BOOKING_TABLE);
         // Tạo lại bảng mới với cấu trúc đã cập nhật
         onCreate(db);
     }
@@ -132,7 +137,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_IS_BLOCK + " INTEGER, " +
                 COLUMN_FOREIGN_ROLEID + " INTEGER REFERENCES " + ROLE_TABLE + "("+ COLUMN_ROLE_ID + ")" +
                 ")";
-
         db.execSQL(createTableAccount);
     }
     public void createRoleTable(SQLiteDatabase db) {
@@ -177,10 +181,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_BOOKING_USER_ID + " INTEGER REFERENCES " + ACCOUNT_TABLE + "(" + COLUMN_ACCOUNT_ID + "), " +
                 COLUMN_BOOKING_STAFF_ID + " INTEGER REFERENCES " + ACCOUNT_TABLE + "(" + COLUMN_ACCOUNT_ID + "), " +
                 COLUMN_BOOKING_TIME + " TEXT, " +
+                COLUMN_BOOKING_SLOT + " TEXT, " +
                 COLUMN_BOOKING_STATUS + " TEXT, " +
+                COLUMN_BOOKING_TOTAL + " TEXT, " +
                 COLUMN_BOOKING_CREATE_TIME + " TEXT)";
         db.execSQL(createTableBooking);
     }
+    public void insertBookingTable(SQLiteDatabase db) {
+        String sql = "";
+        sql = "INSERT INTO " + BOOKING_TABLE + " VALUES (null,1, 3, '22-07-2023', 4, null, '22-07-2023', 10000)";
+        db.execSQL(sql);
+        sql = "INSERT INTO " + BOOKING_TABLE + " VALUES (null,2, 3, '22-07-2023', 5, null, '22-07-2023', 10000)";
+        db.execSQL(sql);
+    }
+
     public void createBookingDetailTable(SQLiteDatabase db) {
         String createTableBookingDetail = "CREATE TABLE IF NOT EXISTS " + BOOKING_DETAIL_TABLE + " (" + COLUMN_BOOKING_DETAIL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_BOOKING_DETAIL_BOOKING_ID + " INTEGER REFERENCES " + BOOKING_TABLE + "(" + COLUMN_BOOKING_ID + "), " +

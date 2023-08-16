@@ -83,26 +83,12 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="6dp"
                     android:fontFamily="@font/gilroy_bold"
-                    android:text=" Total Balance:"
+                    android:text="Barbershop"
                     android:textColor="@color/white_gray"
                     android:textSize="17dp"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txtName" />
-
-                <TextView
-                    android:id="@+id/textView8"
-                    android:layout_width="94dp"
-                    android:layout_height="25dp"
-                    android:layout_marginBottom="12dp"
-                    android:fontFamily="@font/gilroy_bold"
-                    android:text="$20,000"
-                    android:textColor="@color/white"
-                    android:textSize="20dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.081"
-                    app:layout_constraintStart_toEndOf="@+id/textView7" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -151,11 +137,26 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="15dp"
-                        android:text="Stylish"
+                        android:text="NHÂN VIÊN"
+                        android:fontFamily="@font/gilroy_bold"
                         android:textColor="@color/white"
                         android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+
+                    <Button
+                        android:id="@+id/btnManageCategory"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="8dp"
+                        android:backgroundTint="@color/green_custom"
+                        android:fontFamily="@font/gilroy_heavy"
+                        android:text="Manage Category"
+                        android:textColor="@color/black"
+                        android:visibility="gone"
+                        app:layout_constraintStart_toEndOf="@+id/tv_name_category"
+                        app:layout_constraintTop_toBottomOf="@+id/rcvStaff" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rcvStaff"
@@ -171,7 +172,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="20dp"
-                        android:text="Category"
+                        android:text="DANH MỤC"
+                        android:fontFamily="@font/gilroy_bold"
                         android:textColor="@color/white"
                         android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -181,8 +183,9 @@
                         android:id="@+id/rcvCategory"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_marginTop="32dp"
                         app:layout_constraintTop_toBottomOf="@id/tv_name_category"
-                        tools:layout_editor_absoluteX="0dp" />
+                        tools:layout_editor_absoluteX="5dp" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </ScrollView>

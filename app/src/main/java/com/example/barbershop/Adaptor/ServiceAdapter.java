@@ -1,9 +1,12 @@
 package com.example.barbershop.Adaptor;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +20,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.barbershop.BookingActivity;
+import com.example.barbershop.Domain.Booking;
+import com.example.barbershop.Domain.BookingDetail;
 import com.example.barbershop.Domain.Service;
+import com.example.barbershop.Module.BookingDataSource;
+import com.example.barbershop.Module.BookingDetailDataSource;
 import com.example.barbershop.Module.ServiceDataSource;
 import com.example.barbershop.R;
 import com.example.barbershop.ServiceActivity;
@@ -27,8 +34,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceViewHolder> {
+    private SelectedServicesViewModel viewModel;
     private List<Service> serviceList;
-    private List<Service> selectedServices = new ArrayList<>();
+    private  List<BookingDetail> bookingDetails;
+    private ArrayList<Integer> selectedServiceIds = new ArrayList<>();
+
+    private ArrayList<Service> selectedServices = new ArrayList<>();
+
     private Button btnAddListService;
     private Button btnAddService;
     private boolean isBookingActivity;
@@ -38,11 +50,19 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceV
     private static final int VIEW_TYPE_ITEM = 0; // Kiểu item_service
     private static final int VIEW_TYPE_EMPTY = 1; // Kiểu rỗng (không có item_service)
 
-    public ServiceAdapter(Context mContext, Button btnAddListService, boolean isBookingActivity) {
+    double total = 0;
+
+    public ServiceAdapter(Context mContext, Button btnAddListService, boolean isBookingActivity,SelectedServicesViewModel viewModel) {
         this.mContext = mContext;
         this.btnAddListService = btnAddListService;
         this.isBookingActivity = isBookingActivity;
+        this.viewModel = viewModel;
     }
+//    public ServiceAdapter(Context mContext, Button btnAddListService, boolean isBookingActivity) {
+//        this.mContext = mContext;
+//        this.btnAddListService = btnAddListService;
+//        this.isBookingActivity = isBookingActivity;
+//    }
     public ServiceAdapter(Context mContext, boolean isBookingActivity) {
         this.mContext = mContext;
         this.isBookingActivity = isBookingActivity;
@@ -78,6 +98,9 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceV
 
     @Override
     public void onBindViewHolder(@NonNull ServiceAdapter.ServiceViewHolder holder, int position) {
+        BookingDataSource bookingDataSource = new BookingDataSource(mContext);
+        BookingDetailDataSource bookingDetailDataSource = new BookingDetailDataSource(mContext);
+        BookingDetail bookingDetail = new BookingDetail();
         Service service = serviceList.get(position);
         if(service == null){
             return;
@@ -86,25 +109,29 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceV
                 String fileImage = serviceDataSource.getFilePictureForCategory(service.getId());
                 holder.title_service.setText(service.getName());
                 holder.serviceDescription.setText(service.getDescription());
-                holder.priceService.setId((int) service.getPrice());
+                holder.priceService.setText(String.format("$%1$s",service.getPrice()));
                 Picasso.get().load(fileImage).resize(300,300).into(holder.imgPicService);
 
         holder.btnAddService.setOnClickListener(new View.OnClickListener() {
-                    @Override
+            @Override
                     public void onClick(View v) {
                         // Kiểm tra xem item đã tồn tại trong danh sách selectedServices chưa
                         if (selectedServices.contains(service)) {
                             // Nếu đã tồn tại, xóa item khỏi danh sách
                             holder.btnAddService.setBackgroundColor(Color.parseColor("#2BFFB3"));
-                            holder.btnAddService.setText("Booking");
+                            holder.btnAddService.setText("Chọn dịch vụ");
+                            total-=service.getPrice();
                             selectedServices.remove(service);
                         } else {
                             // Nếu chưa tồn tại, thêm item vào danh sách
                             holder.btnAddService.setBackgroundColor(Color.YELLOW);
-                            holder.btnAddService.setText("Remove");
-                            selectedServices.add(service);
-                        }
+                            holder.btnAddService.setText("Xóa dịch vụ");
 
+                            selectedServices.add(service);
+                            total+=service.getPrice();
+                            viewModel.setSelectedServices(selectedServices);
+                            viewModel.setTotalServices(total);
+                        }
                         // Cập nhật số lượng dịch vụ đã chọn lên btnAddListService
                         btnAddListService.setText(String.format("Chọn %d dịch vụ", selectedServices.size()));
 
@@ -116,10 +143,8 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceV
                             isVisible = true;
                             btnAddListService.setVisibility(View.VISIBLE);
                         }
-                    }
+            }
         });
-
-
     }
 
     public List<Service> getSelectedServices() {

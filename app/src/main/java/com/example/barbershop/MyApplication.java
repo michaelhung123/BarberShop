@@ -1,4 +1,4 @@
-package com.example.barbershop.Common;
+package com.example.barbershop;
 
 import android.app.Application;
 

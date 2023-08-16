@@ -3,6 +3,8 @@ plugins {
 
     //google-service (firebase)
     id("com.google.gms.google-services")
+
+
 }
 
 android {
@@ -68,4 +70,8 @@ dependencies {
 
     // Dexter runtime permissions
     implementation 'com.karumi:dexter:6.2.3'
+
+    //Paypal
+    implementation 'com.paypal.sdk:paypal-android-sdk:2.16.0'
+
 }

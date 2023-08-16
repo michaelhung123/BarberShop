@@ -59,19 +59,26 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 if(!isCheckAccount){
-                    Toast.makeText(LoginActivity.this, "Tài khoản hoặc mật khẩu không chính xác !", Toast.LENGTH_SHORT).show();
+                    CustomToast.makeText(LoginActivity.this, "Tài khoản hoặc mật khẩu không chính xác", CustomToast.LENGTH_SHORT,CustomToast.ERROR,true).show();
                 }
                 else {
-                    Toast.makeText(LoginActivity.this, "Đăng nhập thành công !", Toast.LENGTH_SHORT).show();
-
                     //Lưu thông tin của người dùng vừa nhập vào SharedPreferences để hiển thị lên giao diện
                     int userId = accountDataSource.getUserIdByUsername(txtUsername.getText().toString());
+                    int roleId = accountDataSource.getRoleIdByAccountId(userId);
                     SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("username", txtUsername.getText().toString()); // Lưu tên người dùng
-                    editor.putInt("userId", userId); // Lưu tên người dùng
+                    editor.putString("username", txtUsername.getText().toString());
+                    editor.putInt("userId", userId);
+                    editor.putInt("roleId", roleId);
                     editor.apply();
 
+                    if(roleId == 1) {
+                        CustomToast.makeText(LoginActivity.this, "Bạn đang đăng nhập với quyền Admin", CustomToast.LENGTH_SHORT,CustomToast.SUCCESS,true).show();
+                        loginSuccess();
+                    } else if(roleId == 2) {
+                        CustomToast.makeText(LoginActivity.this, "Bạn đang đăng nhập với quyền Staff", CustomToast.LENGTH_SHORT,CustomToast.SUCCESS,true).show();
+                        loginSuccess();
+                    }
                     loginSuccess();
                 }
             }
@@ -87,13 +94,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void loginSuccess() {
-        // Tạo Intent để chuyển đến MainActivity
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-
-        // Chạy Intent để chuyển đến SecondActivity
         startActivity(intent);
-
-        // Kết thúc Activity hiện tại (MainActivity) nếu bạn không muốn quay lại nó
         finish();
     }
 }

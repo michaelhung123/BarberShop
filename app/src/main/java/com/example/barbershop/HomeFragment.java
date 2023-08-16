@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toolbar;
@@ -26,6 +27,7 @@ import com.example.barbershop.Adaptor.CategoryAdapter;
 import com.example.barbershop.Adaptor.ServiceAdapter;
 import com.example.barbershop.Domain.Account;
 import com.example.barbershop.Domain.Category;
+import com.example.barbershop.Domain.Role;
 import com.example.barbershop.Module.AccountDataSource;
 import com.example.barbershop.Module.CategoryDataSource;
 import com.google.android.material.textfield.TextInputEditText;
@@ -96,21 +98,46 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("UserData", Context.MODE_PRIVATE);
+        int roleId = sharedPreferences.getInt("roleId", -1);
+            // Lấy thông tin người dùng từ cơ sở dữ liệu
+            StaffAdapter staffAdapter = new StaffAdapter(getActivity());
+            RecyclerView rcvStaff = view.findViewById(R.id.rcvStaff);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+            rcvStaff.setLayoutManager(linearLayoutManager);
+            staffAdapter.setData(getListStaff());
+            rcvStaff.setAdapter(staffAdapter);
 
-        StaffAdapter staffAdapter = new StaffAdapter(getActivity());
-        RecyclerView rcvStaff = view.findViewById(R.id.rcvStaff);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        rcvStaff.setLayoutManager(linearLayoutManager);
-        staffAdapter.setData(getListStaff());
-        rcvStaff.setAdapter(staffAdapter);
+            RecyclerView rcvCategory = view.findViewById(R.id.rcvCategory);
+            CategoryAdapter categoryAdapter = new CategoryAdapter(getActivity());
+            LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false);
+            rcvCategory.setLayoutManager(linearLayoutManager1);
+            rcvCategory.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+            categoryAdapter.setData(getListCategory());
+            rcvCategory.setAdapter(categoryAdapter);
 
-        RecyclerView rcvCategory = view.findViewById(R.id.rcvCategory);
-        CategoryAdapter categoryAdapter = new CategoryAdapter(getActivity());
-        LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false);
-        rcvCategory.setLayoutManager(linearLayoutManager1);
-        rcvCategory.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        categoryAdapter.setData(getListCategory());
-        rcvCategory.setAdapter(categoryAdapter);
+            txtName = view.findViewById(R.id.txtName);
+
+            String txtUsername = sharedPreferences.getString("username", "Guest");
+            txtName.setText(txtUsername);
+
+        Button btnManageCategory = view.findViewById(R.id.btnManageCategory);
+        if (roleId == 1) {
+            // Nếu roleId là 1 (admin), hiển thị Button "Control Category"
+            btnManageCategory.setVisibility(View.VISIBLE);
+            btnManageCategory.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Xử lý sự kiện khi nút được nhấn
+                    // Ví dụ: chuyển đến hoạt động quản lý danh mục
+                    Intent intent = new Intent(getActivity(), IndexCategoryActivity.class);
+                    startActivity(intent);
+                }
+            });
+        } else {
+            // Nếu roleId không phải là admin, ẩn Button "Control Category"
+            btnManageCategory.setVisibility(View.GONE);
+        }
 
     }
 

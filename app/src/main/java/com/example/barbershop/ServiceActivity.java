@@ -15,15 +15,19 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.barbershop.Adaptor.CategoryAdapter;
+import com.example.barbershop.Adaptor.SelectedServicesViewModel;
 import com.example.barbershop.Adaptor.ServiceAdapter;
+import com.example.barbershop.Domain.BookingDetail;
 import com.example.barbershop.Domain.Category;
 import com.example.barbershop.Domain.Service;
 import com.example.barbershop.Domain.Staff;
+import com.example.barbershop.Module.BookingDetailDataSource;
 import com.example.barbershop.Module.CategoryDataSource;
 import com.example.barbershop.Module.ServiceDataSource;
 
@@ -34,11 +38,21 @@ public class ServiceActivity extends AppCompatActivity {
     public Button getBtnAddListService() {
         return btnAddListService;
     }
-    Button btnAddListService;
+    Button btnAddListService, btnManageService;
+
+    // Khai báo ViewModel
+    private SelectedServicesViewModel viewModel;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.service_in_category);
+
+        SharedPreferences sharedPreferences = this.getSharedPreferences("UserData", Context.MODE_PRIVATE);
+        int roleId = sharedPreferences.getInt("roleId", -1);
+
+        // Khởi tạo ViewModel
+        MyApplication myApplication = (MyApplication) getApplication();
+        viewModel = myApplication.getViewModel();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -47,32 +61,46 @@ public class ServiceActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         btnAddListService = findViewById(R.id.btnAddListService);
+        btnManageService = findViewById(R.id.btnManageService);
 
         RecyclerView rcvService = findViewById(R.id.rcvService);
-        ServiceAdapter serviceAdapter = new ServiceAdapter(this, btnAddListService,false);
+        ServiceAdapter serviceAdapter = new ServiceAdapter(this, btnAddListService,false,viewModel);
         LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
         rcvService.setLayoutManager(linearLayoutManager1);
         rcvService.setLayoutManager(new GridLayoutManager(this, 2));
         serviceAdapter.setData(getListService());
         rcvService.setAdapter(serviceAdapter);
 
+
         btnAddListService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                serviceAdapter.getSelectedServices();
-                Log.d("service list:", String.valueOf(serviceAdapter.getSelectedServices()));
-                Intent intent = new Intent(ServiceActivity.this, BookingActivity.class);
+                Intent intent = new Intent(ServiceActivity.this, Booking2Activity.class);
                 startActivity(intent);
             }
         });
-    }
 
-//    public List<Service> getListSelected() {
-//        Log.d("adapterListSelected2", String.valueOf(selectedServices));
-//        return selectedServices;
-//    }
+        if (roleId == 1) {
+            // Nếu roleId là 1 (admin), hiển thị Button "Control Category"
+            btnManageService.setVisibility(View.VISIBLE);
+            btnManageService.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Xử lý sự kiện khi nút được nhấn
+                    // Ví dụ: chuyển đến hoạt động quản lý danh mục
+                    Intent intent = new Intent(ServiceActivity.this, IndexServiceActivity.class);
+                    startActivity(intent);
+                }
+            });
+        } else {
+            // Nếu roleId không phải là admin, ẩn Button "Control Category"
+            btnManageService.setVisibility(View.GONE);
+        }
+
+
+    }
     private List<Service> getListService() {
-            SharedPreferences sharedPreferences = getSharedPreferences("categoryId", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("categoryId", Context.MODE_PRIVATE);
             int categoryId = sharedPreferences.getInt("categoryId", -1);
 
             ServiceDataSource serviceDataSource = new ServiceDataSource(this);

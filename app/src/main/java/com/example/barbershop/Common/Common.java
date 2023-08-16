@@ -6,9 +6,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class Common {
+    public static final String PAYPAL_CLIENT_ID = "AT6bxkunPAdCFP5bmp7FD_NhYf89Ji12Ta-5DyditvH4WddP_hjOElbyPuoz5jv7xtTe8FbX0EtUB3cs";
     public  static Account currentUser;
     public static Calendar bookingDate = Calendar.getInstance();
     public static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd_MM_yyyy");
+    public static final int TIME_SLOT_TOTAL = 20;  //10 tiếng mở cửa, 30p = 1 task cắt tóc => 20 task
+    public static Object DISABLE_TAG  = "DISABLE";
 
     public static String convertTimeSlotToString(int slot) {
         switch (slot) {
@@ -44,7 +47,16 @@ public class Common {
                 return "16:30 - 17:00";
             case 15:
                 return "17:00 - 17:30";
+            case 16:
+                return "17:00 - 17:30";
+            case 17:
+                return "17:00 - 17:30";
+            case 18:
+                return "17:00 - 17:30";
+            case 19:
+                return "17:00 - 17:30";
+            default:
+                return "Closed";
         }
-        return null;
     }
 }

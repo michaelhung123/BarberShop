@@ -6,10 +6,14 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -17,11 +21,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -34,7 +41,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class IndexCategoryActivity extends AppCompatActivity {
     Button btnCreateCategory;
@@ -50,10 +59,23 @@ public class IndexCategoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.index_categories);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
         btnCreateCategory = findViewById(R.id.btnCreateCategory);
         lvCategoires = findViewById(R.id.lvCategories);
         categories = CategoryDataSource.selectCategories(IndexCategoryActivity.this);
-        adapterListView = new ArrayAdapter<>(IndexCategoryActivity.this, android.R.layout.simple_list_item_1, categories);
+        adapterListView = new ArrayAdapter(IndexCategoryActivity.this, android.R.layout.simple_list_item_1, categories) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(Color.WHITE);
+                return view;
+            }
+        };
         lvCategoires.setAdapter(adapterListView);
         initConfig();
 
@@ -124,7 +146,6 @@ public class IndexCategoryActivity extends AppCompatActivity {
         imgView = view.findViewById(R.id.imgView);
         Button btnAdd = view.findViewById(R.id.btnAdd);
 
-//        initConfig();
 
         imgView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,12 +159,7 @@ public class IndexCategoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Category category = new Category();
-//                category.setName(createName.getText().toString());
-//                category.setDescription(createDescription.getText().toString());
-//                category.setImagePic(createFile.getText().toString());
                 CategoryDataSource categoryDataSource = new CategoryDataSource(IndexCategoryActivity.this);
-//                Toast.makeText(CategoryActivity.this, "Success!", Toast.LENGTH_SHORT).show();
-
                 MediaManager.get().upload(imagePath).callback(new UploadCallback() {
                     @Override
                     public void onStart(String requestId) {
@@ -285,6 +301,24 @@ public class IndexCategoryActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    //    Bắt sự kiện button Back trên Toolbar
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            // Tạo Intent để chuyển đến MainActivity
+            Intent intent = new Intent(this, MainActivity.class);
+
+            // Chạy Intent để chuyển đến SecondActivity
+            startActivity(intent);
+
+            // Kết thúc Activity hiện tại (MainActivity) nếu bạn không muốn quay lại nó
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 }

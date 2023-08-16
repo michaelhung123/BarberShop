@@ -1,12 +1,27 @@
 package com.example.barbershop;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.barbershop.Adaptor.BookingAdapter;
+import com.example.barbershop.Domain.Booking;
+import com.example.barbershop.Module.BookingDataSource;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,5 +75,29 @@ public class CutFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_cut, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        RecyclerView rcvListBooking = view.findViewById(R.id.rcvListBooking);
+
+        BookingAdapter bookingAdapter = new BookingAdapter(getActivity());
+        LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false);
+        rcvListBooking.setLayoutManager(linearLayoutManager1);
+        rcvListBooking.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+        bookingAdapter.setData(getListBooking());
+        rcvListBooking.setAdapter(bookingAdapter);
+    }
+
+    private List<Booking> getListBooking() {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("UserData", MODE_PRIVATE);
+        int userId = sharedPreferences.getInt("userId",-1);
+        BookingDataSource bookingDataSource = new BookingDataSource(getActivity());
+        List<Booking> bookingList = bookingDataSource.selectBookingByUserId(getActivity(), userId);
+
+        Log.d("bookingList", String.valueOf(bookingList));
+        return bookingList;
     }
 }

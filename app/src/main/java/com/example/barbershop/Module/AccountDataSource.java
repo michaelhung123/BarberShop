@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.barbershop.Domain.Account;
 import com.example.barbershop.Domain.Category;
+import com.example.barbershop.Domain.Role;
 
 import java.util.ArrayList;
 
@@ -147,6 +148,37 @@ public class AccountDataSource {
         db.close();
         return userId;
     }
+    public String getUserByUserId(int userId) {
+        String name = "";
+        db = dbHelper.getReadableDatabase();
+        // Tạo câu truy vấn SQL để lấy ID người dùng dựa vào tên người dùng
+        String query = "SELECT " + dbHelper.COLUMN_NAME + " FROM " + dbHelper.ACCOUNT_TABLE +
+                " WHERE " + dbHelper.COLUMN_ACCOUNT_ID + " = ?" + "AND " + dbHelper.COLUMN_FOREIGN_ROLEID + " = 3";
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(userId)});
+        if (cursor.moveToFirst()) {
+            // Nếu có kết quả từ câu truy vấn, lấy ID người dùng từ cột COLUMN_ACCOUNT_ID
+            name = cursor.getString(0);
+        }
+        cursor.close();
+        db.close();
+        return name;
+    }
+
+    public String getStaffByStaffId(int staffId) {
+        String name = "";
+        db = dbHelper.getReadableDatabase();
+        // Tạo câu truy vấn SQL để lấy ID người dùng dựa vào tên người dùng
+        String query = "SELECT " + dbHelper.COLUMN_NAME + " FROM " + dbHelper.ACCOUNT_TABLE +
+                " WHERE " + dbHelper.COLUMN_ACCOUNT_ID + " = ?" + "AND " + dbHelper.COLUMN_FOREIGN_ROLEID + " = 2";
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(staffId)});
+        if (cursor.moveToFirst()) {
+            // Nếu có kết quả từ câu truy vấn, lấy ID người dùng từ cột COLUMN_ACCOUNT_ID
+            name = cursor.getString(0);
+        }
+        cursor.close();
+        db.close();
+        return name;
+    }
 
     public int getStaffIdByUsername(String name) {
         int staffId = -1;
@@ -225,4 +257,69 @@ public class AccountDataSource {
         int updateAccount = db.update(dbHelper.ACCOUNT_TABLE, cv, dbHelper.COLUMN_ACCOUNT_ID + " = ?", new String[]{Integer.toString(acc.getId())});
         return updateAccount > 0;
     }
+
+    //Role
+    public ArrayList<Role> getAllRoles() {
+        ArrayList<Role> roles = new ArrayList<>();
+        db = dbHelper.getReadableDatabase();
+        String query = "SELECT * FROM " + dbHelper.ROLE_TABLE;
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                int roleId = cursor.getInt(cursor.getColumnIndexOrThrow(dbHelper.COLUMN_ROLE_ID));
+                String roleName = cursor.getString(cursor.getColumnIndexOrThrow(dbHelper.COLUMN_ROLE_NAME));
+
+                Role role = new Role(roleId, roleName);
+                roles.add(role);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return roles;
+    }
+
+    public Role getRoleByName(String roleName) {
+        db = dbHelper.getReadableDatabase();
+        String query = "SELECT * FROM " + dbHelper.ROLE_TABLE + " WHERE " + dbHelper.COLUMN_ROLE_NAME + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{roleName});
+
+        Role role = null;
+
+        if (cursor.moveToFirst()) {
+            int roleId = cursor.getInt(cursor.getColumnIndexOrThrow(dbHelper.COLUMN_ROLE_ID));
+            String name = cursor.getString(cursor.getColumnIndexOrThrow(dbHelper.COLUMN_ROLE_NAME));
+
+            role = new Role(roleId, name);
+        }
+
+        cursor.close();
+        db.close();
+        return role;
+    }
+
+    public int getRoleIdByAccountId(int accountId) {
+        db = dbHelper.getReadableDatabase();
+
+        // Tạo câu truy vấn SQL để lấy roleId từ bảng Account dựa vào accountId
+        String query = "SELECT " + dbHelper.COLUMN_FOREIGN_ROLEID +
+                " FROM " + dbHelper.ACCOUNT_TABLE +
+                " WHERE " + dbHelper.COLUMN_ACCOUNT_ID + " = ?";
+
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(accountId)});
+
+        int roleId = -1;
+
+        if (cursor.moveToFirst()) {
+            roleId = cursor.getInt(cursor.getColumnIndexOrThrow(dbHelper.COLUMN_FOREIGN_ROLEID));
+        }
+
+        cursor.close();
+        db.close();
+
+        return roleId;
+    }
+
+
 }

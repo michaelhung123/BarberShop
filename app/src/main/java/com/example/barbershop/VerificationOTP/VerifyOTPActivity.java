@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.barbershop.Domain.Account;
+import com.example.barbershop.LoginActivity;
 import com.example.barbershop.MainActivity;
 import com.example.barbershop.Module.AccountDataSource;
 import com.example.barbershop.R;
@@ -114,7 +115,7 @@ public class VerifyOTPActivity extends AppCompatActivity {
                                     AccountDataSource accountDataSource = new AccountDataSource(getApplicationContext());
                                     if(task.isSuccessful() && accountDataSource.addAccount(acc) instanceof Account){
 
-                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                                         //Clear các hoạt động trước đó và chuyển sang MainActivity
                                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         startActivity(intent);

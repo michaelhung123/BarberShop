@@ -1,10 +1,12 @@
 package com.example.barbershop;
 
 import android.app.Dialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -12,6 +14,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -35,7 +38,15 @@ public class IndexAccountActivity extends AppCompatActivity {
         lvAccounts = findViewById(R.id.lvAccounts);
         accounts = AccountDataSource.selectAccountsRoleUser(IndexAccountActivity.this);
 
-        adapterListView = new ArrayAdapter<>(IndexAccountActivity.this, android.R.layout.simple_list_item_1, accounts);
+        adapterListView = new ArrayAdapter(IndexAccountActivity.this, android.R.layout.simple_list_item_1, accounts) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(Color.WHITE);
+                return view;
+            }
+        };
         lvAccounts.setAdapter(adapterListView);
 
         lvAccounts.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -1,25 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:background="#131313"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <TextView
-        android:background="@android:color/holo_blue_light"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:textSize="40sp"
         android:gravity="center"
+        android:background="#000000"
+        android:textColor="@color/white"
         android:text="Cập nhật tài khoản" />
 
     <Switch
         android:id="@+id/swBlock"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="18dp"
         android:text="Chặn" />
 
     <Button
         android:id="@+id/btnUpdate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Cập nhật"/>
+        android:backgroundTint="@color/green_custom"
+        android:fontFamily="@font/gilroy_heavy"
+        android:layout_marginTop="20dp"
+        android:textSize="18dp"
+        android:text="Update"/>
 </LinearLayout>
