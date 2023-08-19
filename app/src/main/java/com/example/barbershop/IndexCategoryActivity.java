@@ -77,7 +77,7 @@ public class IndexCategoryActivity extends AppCompatActivity {
             }
         };
         lvCategoires.setAdapter(adapterListView);
-        initConfig();
+//        initConfig();
 
 
         btnCreateCategory.setOnClickListener(new View.OnClickListener() {
@@ -97,14 +97,14 @@ public class IndexCategoryActivity extends AppCompatActivity {
 
     }
 
-    private void initConfig() {
-        Map config = new HashMap();
-        config.put("cloud_name", "dgm68hajt");
-        config.put("api_key", "445342655699255");
-        config.put("api_secret", "-RkgzrKOgwbd32E9oK71iOW_WDQ");
-        config.put("secure", true);
-        MediaManager.init(this, config);
-    }
+//    private void initConfig() {
+//        Map config = new HashMap();
+//        config.put("cloud_name", "dgm68hajt");
+//        config.put("api_key", "445342655699255");
+//        config.put("api_secret", "-RkgzrKOgwbd32E9oK71iOW_WDQ");
+//        config.put("secure", true);
+//        MediaManager.init(this, config);
+//    }
 
     private void requestPermissions() {
         if(ContextCompat.checkSelfPermission(IndexCategoryActivity.this, android.Manifest.permission.READ_MEDIA_IMAGES)

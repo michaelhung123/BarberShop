@@ -80,7 +80,7 @@ public class IndexServiceActivity extends AppCompatActivity {
             }
         };
         lvServices.setAdapter(adapterListView);
-        initConfig();
+//        initConfig();
         service = new Service();
 
         btnCreateService.setOnClickListener(new View.OnClickListener() {
@@ -98,14 +98,14 @@ public class IndexServiceActivity extends AppCompatActivity {
         });
     }
 
-    private void initConfig() {
-        Map config = new HashMap();
-        config.put("cloud_name", "dgm68hajt");
-        config.put("api_key", "445342655699255");
-        config.put("api_secret", "-RkgzrKOgwbd32E9oK71iOW_WDQ");
-        config.put("secure", true);
-        MediaManager.init(this, config);
-    }
+//    public void initConfig() {
+//        Map config = new HashMap();
+//        config.put("cloud_name", "dgm68hajt");
+//        config.put("api_key", "445342655699255");
+//        config.put("api_secret", "-RkgzrKOgwbd32E9oK71iOW_WDQ");
+//        config.put("secure", true);
+//        MediaManager.init(this, config);
+//    }
 
     private void requestPermissions() {
         if(ContextCompat.checkSelfPermission(IndexServiceActivity.this, android.Manifest.permission.READ_MEDIA_IMAGES)
@@ -178,6 +178,7 @@ public class IndexServiceActivity extends AppCompatActivity {
                         String imageUrl = resultData.get("secure_url").toString();
                         service.setName(createName.getText().toString());
                         service.setDescription(createDescription.getText().toString());
+                        service.setPrice(Double.parseDouble(createPrice.getText().toString()));
                         service.setFilePath(imageUrl);
 
                         if (serviceDataSource.addService(service) instanceof Service) {

@@ -11,6 +11,7 @@
         android:background="#000000"
         android:gravity="center"
         android:textColor="@color/white"
+        android:textColorHint="@color/white"
         android:text="Create Category"
         android:textSize="40sp" />
 
@@ -20,13 +21,16 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:textColor="@color/white"
+        android:textColorHint="@color/white"
         android:hint="Nhập tên"/>
     <EditText
         android:id="@+id/createDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
+        android:textColorHint="@color/white"
         android:hint="Nhập mô tả"/>
+
     <ImageView
         android:id="@+id/imgView"
         android:layout_width="match_parent"
